@@ -1,24 +1,24 @@
 {
 	"schema_version": 1,
 	"quilt_loader": {
-		"group": "io.github.tropheusj",
+		"group": "one.devos.nautical",
 		"id": "modid",
 		"version": "${version}",
 		"metadata": {
 			"name": "Modid",
 			"description": "A short description of your mod.",
-			"contributors": {
-				"Tropheus Jay": "Owner"
-			},
-			"contact": {
-				"issues": "https://github.com/TropheusJ/quilt-template-mod/issues",
-				"sources": "https://github.com/TropheusJ/quilt-template-mod"
-			},
+      "contributors": {
+        "devOS: Sanity Edition, Team Nautical": "Owner"
+      },
+      "contact": {
+        "issues": "https://github.com/devOS-Sanity-Edition/working-title/issues",
+        "sources": "https://github.com/devOS-Sanity-Edition/working-title"
+      },
 			"icon": "assets/modid/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.tropheusj.modid.ExampleMod"
+			"init": "one.devos.nautical.modid.ExampleMod"
 		},
 		"depends": [
 			{
