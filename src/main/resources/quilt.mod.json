@@ -18,7 +18,8 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "one.devos.nautical.modid.ExampleMod"
+			"init": "one.devos.nautical.modid.ExampleMod",
+      "fabric-datagen": "one.devos.nautical.modid.Datagen"
 		},
 		"depends": [
 			{
