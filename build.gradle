@@ -41,7 +41,7 @@ loom {
 			name "Minecraft Data"
 			vmArg "-Dfabric-api.datagen"
 			vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
-			vmArg "-Dfabric-api.datagen.modid=modid"
+			vmArg "-Dfabric-api.datagen.modid=depths_desolation"
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package one.devos.nautical.modid.util;
+package one.devos.nautical.depths_desolation.util;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;

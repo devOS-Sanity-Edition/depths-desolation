@@ -1,17 +1,17 @@
-package one.devos.nautical.modid;
+package one.devos.nautical.depths_desolation;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import one.devos.nautical.depths_desolation.feature.DdConfiguredFeatures;
+import one.devos.nautical.depths_desolation.feature.DdPlacedFeatures;
+import one.devos.nautical.depths_desolation.util.DynamicRegistryBootstraps;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import one.devos.nautical.modid.util.DynamicRegistryBootstraps;
-import one.devos.nautical.modid.feature.ModConfiguredFeatures;
-import one.devos.nautical.modid.feature.ModPlacedFeatures;
 
-public class Datagen implements DataGeneratorEntrypoint {
+public class DdDatagen implements DataGeneratorEntrypoint {
 	public static final DynamicRegistryBootstraps BOOTSTRAPS = DynamicRegistryBootstraps.builder()
-			.put(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
-			.put(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap)
+			.put(Registries.CONFIGURED_FEATURE, DdConfiguredFeatures::bootstrap)
+			.put(Registries.PLACED_FEATURE, DdPlacedFeatures::bootstrap)
 			.build();
 
 	@Override

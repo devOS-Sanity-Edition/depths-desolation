@@ -1,4 +1,4 @@
-package one.devos.nautical.modid.feature;
+package one.devos.nautical.depths_desolation.feature;
 
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -8,19 +8,20 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import one.devos.nautical.modid.ExampleMod;
 
 import java.util.List;
 
-public class ModPlacedFeatures {
+import one.devos.nautical.depths_desolation.DepthsAndDesolation;
+
+public class DdPlacedFeatures {
 	public static final ResourceKey<PlacedFeature> SNOWIFY = ResourceKey.create(
-			Registries.PLACED_FEATURE, ExampleMod.id("snowify")
+			Registries.PLACED_FEATURE, DepthsAndDesolation.id("snowify")
 	);
 
 	public static void bootstrap(BootstapContext<PlacedFeature> ctx) {
 		HolderGetter<ConfiguredFeature<?, ?>> configured = ctx.lookup(Registries.CONFIGURED_FEATURE);
 		ctx.register(SNOWIFY, new PlacedFeature(
-				configured.getOrThrow(ModConfiguredFeatures.SNOWIFY),
+				configured.getOrThrow(DdConfiguredFeatures.SNOWIFY),
 				List.of(BiomeFilter.biome(), PlacementUtils.HEIGHTMAP)
 		));
 	}

@@ -2,24 +2,24 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "one.devos.nautical",
-		"id": "modid",
+		"id": "depths_desolation",
 		"version": "${version}",
 		"metadata": {
-			"name": "Modid",
-			"description": "A short description of your mod.",
+			"name": "Depths & Desolation",
+			"description": "When the surface becomes uninhabitable, life moves underground.",
       "contributors": {
         "devOS: Sanity Edition, Team Nautical": "Owner"
       },
       "contact": {
-        "issues": "https://github.com/devOS-Sanity-Edition/working-title/issues",
-        "sources": "https://github.com/devOS-Sanity-Edition/working-title"
+        "issues": "https://github.com/devOS-Sanity-Edition/depths-desolation/issues",
+        "sources": "https://github.com/devOS-Sanity-Edition/depths-desolation"
       },
-			"icon": "assets/modid/icon.png"
+			"icon": "assets/depths_desolation/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "one.devos.nautical.modid.ExampleMod",
-      "fabric-datagen": "one.devos.nautical.modid.Datagen"
+			"init": "one.devos.nautical.depths_desolation.DepthsAndDesolation",
+      "fabric-datagen": "one.devos.nautical.depths_desolation.DdDatagen"
 		},
 		"depends": [
 			{
@@ -36,5 +36,5 @@
 			}
 		]
 	},
-	"mixin": "modid.mixins.json"
+	"mixin": "depths_desolation.mixins.json"
 }
