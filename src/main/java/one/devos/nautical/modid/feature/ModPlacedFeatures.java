@@ -7,7 +7,6 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import one.devos.nautical.modid.ExampleMod;
 
@@ -22,7 +21,7 @@ public class ModPlacedFeatures {
 		HolderGetter<ConfiguredFeature<?, ?>> configured = ctx.lookup(Registries.CONFIGURED_FEATURE);
 		ctx.register(SNOWIFY, new PlacedFeature(
 				configured.getOrThrow(ModConfiguredFeatures.SNOWIFY),
-				List.of(InSquarePlacement.spread(), BiomeFilter.biome(), PlacementUtils.HEIGHTMAP)
+				List.of(BiomeFilter.biome(), PlacementUtils.HEIGHTMAP)
 		));
 	}
 }
