@@ -17,10 +17,17 @@ public abstract class LevelMixin implements LevelAccessor {
 	@Shadow
 	public abstract boolean isClientSide();
 
-	@Inject(method = { "getRainLevel", "getThunderLevel" }, at = @At("HEAD"), cancellable = true)
-	private void weatherInOverworld(float delta, CallbackInfoReturnable<Float> cir) {
+	@Inject(method = "getRainLevel", at = @At("HEAD"), cancellable = true)
+	private void alwaysSnowyOverworld(float delta, CallbackInfoReturnable<Float> cir) {
 		if (!this.isClientSide() && DepthsAndDesolation.isOverworld(this)) {
 			cir.setReturnValue(1f);
+		}
+	}
+
+	@Inject(method = "getThunderLevel", at = @At("HEAD"), cancellable = true)
+	private void neverThunderOverworld(float delta, CallbackInfoReturnable<Float> cir) {
+		if (!this.isClientSide() && DepthsAndDesolation.isOverworld(this)) {
+			cir.setReturnValue(0f);
 		}
 	}
 

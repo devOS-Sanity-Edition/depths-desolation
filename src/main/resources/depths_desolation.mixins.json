@@ -10,6 +10,7 @@
     "ServerLevelMixin"
   ],
   "client": [
+    "cient.FogRendererMixin",
     "cient.LevelRendererMixin"
   ],
   "injectors": {
