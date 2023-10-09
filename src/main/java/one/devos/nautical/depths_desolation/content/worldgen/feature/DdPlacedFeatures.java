@@ -1,4 +1,4 @@
-package one.devos.nautical.depths_desolation.feature;
+package one.devos.nautical.depths_desolation.content.worldgen.feature;
 
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;

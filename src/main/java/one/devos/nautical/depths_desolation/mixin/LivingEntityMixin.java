@@ -2,7 +2,7 @@ package one.devos.nautical.depths_desolation.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
-import one.devos.nautical.depths_desolation.DepthsAndDesolation;
+import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +31,7 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 
 		Level level = this.level();
-		if (DepthsAndDesolation.isOverworld(level)) {
+		if (DdWorldgen.isOverworld(level)) {
 			return level.canSeeSkyFromBelowWater(this.blockPosition());
 		}
 

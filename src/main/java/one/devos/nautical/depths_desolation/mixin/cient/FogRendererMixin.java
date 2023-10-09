@@ -3,7 +3,7 @@ package one.devos.nautical.depths_desolation.mixin.cient;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
-import one.devos.nautical.depths_desolation.DepthsAndDesolation;
+import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -56,7 +56,8 @@ public class FogRendererMixin {
 			method = "setupFog",
 			at = @At(
 					value = "INVOKE",
-					target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderFogStart(F)V"
+					target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderFogStart(F)V",
+					remap = false
 			)
 	)
 	private static void handleSnowFogDistanceStart(Args args,
@@ -71,7 +72,8 @@ public class FogRendererMixin {
 			method = "setupFog",
 			at = @At(
 					value = "INVOKE",
-					target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderFogEnd(F)V"
+					target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderFogEnd(F)V",
+					remap = false
 			)
 	)
 	private static void handleSnowFogDistanceEnd(Args args,
@@ -104,7 +106,7 @@ public class FogRendererMixin {
 
 	@Unique
 	private static boolean getSnowFogStatus(ClientLevel level, Camera camera) {
-		if (DepthsAndDesolation.isOverworld(level)) {
+		if (DdWorldgen.isOverworld(level)) {
 			BlockPos blockPos = camera.getBlockPosition();
 			return level.canSeeSky(blockPos);
 		}

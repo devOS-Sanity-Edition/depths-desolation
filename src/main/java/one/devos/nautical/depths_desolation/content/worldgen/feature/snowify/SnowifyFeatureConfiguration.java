@@ -1,4 +1,4 @@
-package one.devos.nautical.depths_desolation.feature.snowify;
+package one.devos.nautical.depths_desolation.content.worldgen.feature.snowify;
 
 import com.mojang.serialization.Codec;
 

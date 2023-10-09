@@ -2,8 +2,8 @@ package one.devos.nautical.depths_desolation;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import one.devos.nautical.depths_desolation.feature.DdConfiguredFeatures;
-import one.devos.nautical.depths_desolation.feature.DdPlacedFeatures;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.DdConfiguredFeatures;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.DdPlacedFeatures;
 import one.devos.nautical.depths_desolation.util.DynamicRegistryBootstraps;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
