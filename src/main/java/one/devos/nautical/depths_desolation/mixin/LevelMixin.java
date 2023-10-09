@@ -10,22 +10,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 
 @Mixin(Level.class)
-public abstract class LevelMixin {
+public abstract class LevelMixin implements LevelAccessor {
 	@Shadow
 	public abstract boolean isClientSide();
 
 	@Inject(method = { "getRainLevel", "getThunderLevel" }, at = @At("HEAD"), cancellable = true)
 	private void weatherInOverworld(float delta, CallbackInfoReturnable<Float> cir) {
-		if (!this.isClientSide() && DepthsAndDesolation.isOverworld((Level) (Object) this)) {
+		if (!this.isClientSide() && DepthsAndDesolation.isOverworld(this)) {
 			cir.setReturnValue(1f);
 		}
 	}
 
 	@Inject(method = "isRainingAt", at = @At("HEAD"), cancellable = true)
 	private void snowyOverworld(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		if (DepthsAndDesolation.isOverworld((Level) (Object) this)) {
+		if (DepthsAndDesolation.isOverworld(this)) {
 			cir.setReturnValue(false);
 		}
 	}

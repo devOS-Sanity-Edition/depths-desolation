@@ -2,6 +2,8 @@ package one.devos.nautical.depths_desolation.mixin;
 
 import java.util.function.Supplier;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,19 +32,19 @@ public abstract class ServerLevelMixin extends Level {
 
 	@Inject(method = "advanceWeatherCycle", at = @At("HEAD"), cancellable = true)
 	private void constantWeather(CallbackInfo ci) {
-		if (Level.OVERWORLD == this.dimension()) {
+		if (DepthsAndDesolation.isOverworld(this)) {
 			ci.cancel();
 		}
 	}
 
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "tickChunk",
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/world/level/biome/Biome;getPrecipitationAt(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/biome/Biome$Precipitation;"
 			)
 	)
-	private Precipitation alwaysSnow(Biome instance, BlockPos pos) {
-		return DepthsAndDesolation.isOverworld(this) ? Precipitation.SNOW : instance.getPrecipitationAt(pos);
+	private Precipitation alwaysSnow(Precipitation original) {
+		return DepthsAndDesolation.isOverworld(this) ? Precipitation.SNOW : original;
 	}
 }

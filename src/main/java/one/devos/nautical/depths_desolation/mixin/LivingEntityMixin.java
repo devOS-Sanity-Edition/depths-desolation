@@ -1,10 +1,11 @@
 package one.devos.nautical.depths_desolation.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -17,15 +18,15 @@ public abstract class LivingEntityMixin extends Entity {
 		super(variant, world);
 	}
 
-	@Redirect(
+	@ModifyExpressionValue(
 			method = "aiStep",
 			at = @At(
 					value = "FIELD",
 					target = "Lnet/minecraft/world/entity/LivingEntity;isInPowderSnow:Z"
 			)
 	)
-	private boolean overworldSurfaceFreezes(LivingEntity instance) {
-		if (instance.isInPowderSnow) {
+	private boolean overworldSurfaceFreezes(boolean inPowderSnow) {
+		if (inPowderSnow) {
 			return true;
 		}
 
