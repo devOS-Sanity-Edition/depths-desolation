@@ -2,6 +2,7 @@ package one.devos.nautical.depths_desolation;
 
 import net.minecraft.resources.ResourceLocation;
 
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 import org.quiltmc.loader.api.ModContainer;
@@ -32,5 +33,10 @@ public class DepthsAndDesolation implements ModInitializer {
 
 	public static ResourceLocation id(String path) {
 		return new ResourceLocation(ID, path);
+	}
+
+	public static boolean isOverworld(Level level) {
+		// ResourceKey is interned, == works
+		return level.dimension() == Level.OVERWORLD;
 	}
 }
