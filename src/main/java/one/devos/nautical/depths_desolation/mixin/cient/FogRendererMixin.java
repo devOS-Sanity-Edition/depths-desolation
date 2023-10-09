@@ -63,7 +63,7 @@ public class FogRendererMixin {
 												   Camera camera, FogRenderer.FogMode fogType, float viewDistance, boolean thickFog, float tickDelta) {
 		float start = args.get(0);
 		float snowFogEnd = Math.min(SNOW_FOG_END, viewDistance);
-		float snowFogStart = -snowFogEnd / 2;
+		float snowFogStart = -snowFogEnd;
 		args.set(0, (float) Mth.lerp(fogress, start, snowFogStart));
 	}
 
