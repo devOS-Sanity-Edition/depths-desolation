@@ -12,15 +12,21 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.ServerLevelData;
 
 import one.devos.nautical.depths_desolation.content.worldgen.feature.spawncave.SpawnCaveFeature;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Optional;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
@@ -31,19 +37,12 @@ public class MinecraftServerMixin {
 		if (debugWorld)
 			return;
 
-		Pair<BlockPos, Holder<Biome>> lushCave = world.findClosestBiome3d(
-				biome -> biome.is(Biomes.LUSH_CAVES),
-				BlockPos.ZERO,
-				10_000,
-				16,
-				16
-		);
-
-		if (lushCave == null)
-			return;
+		BlockPos spawnPos = findValidSpawn(world);
+		System.out.println("Found spawn: " + spawnPos);
+		if (spawnPos == null)
+			return; // good luck!
 
 		ci.cancel();
-		BlockPos spawnPos = lushCave.getFirst();
 		worldProperties.setSpawn(spawnPos, 0);
 
 		ResourceKey<ConfiguredFeature<?, ?>> spawnCave = SpawnCaveFeature.get(bonusChest);
@@ -57,5 +56,37 @@ public class MinecraftServerMixin {
 								spawnPos
 						)
 				);
+	}
+
+	@Nullable
+	@Unique
+	private static BlockPos findValidSpawn(ServerLevel level) {
+		Pair<BlockPos, Holder<Biome>> lushCave = level.findClosestBiome3d(
+				biome -> biome.is(Biomes.LUSH_CAVES),
+				BlockPos.ZERO,
+				10_000,
+				16,
+				16
+		);
+		if (lushCave == null)
+			return null;
+
+		// find a lit open space.
+		Optional<BlockPos> found = BlockPos.findClosestMatch(lushCave.getFirst(), 256, 256, pos -> {
+			BlockState state = level.getBlockState(pos);
+			if (!state.canBeReplaced() || !state.getFluidState().isEmpty())
+				return false;
+			if (level.getLightEmission(pos) == 0)
+				return false;
+			BlockState floor = level.getBlockState(pos.below());
+			if (floor.canBeReplaced())
+				return false;
+			if (!level.getBiome(pos).is(Biomes.LUSH_CAVES))
+				return false;
+
+			return true;
+		});
+
+		return found.orElse(null);
 	}
 }
