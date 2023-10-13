@@ -35,6 +35,8 @@ dependencies {
 }
 
 loom {
+	accessWidenerPath = file("src/main/resources/depths_desolation.accesswidener")
+
 	runs {
 		datagen {
 			client()

@@ -36,5 +36,6 @@
 			}
 		]
 	},
-	"mixin": "depths_desolation.mixins.json"
+	"mixin": "depths_desolation.mixins.json",
+  "access_widener": "depths_desolation.accesswidener"
 }

@@ -1,5 +1,7 @@
-// 1.20.1	2023-10-11T14:49:46.2010604	Depths & Desolation/Dynamic Registry bootstraps for depths_desolation
-5b63d21483d05867ba398e2a2ff6e494d8e1563b data\depths_desolation\worldgen\placed_feature\snowify.json
-19dc3b0b514ca340f2d69290d17e360de30285f0 data\depths_desolation\worldgen\configured_feature\spawn_cave_bonus.json
-ad7e5708e43371933b8459add43bb903c8a863a3 data\depths_desolation\worldgen\configured_feature\spawn_cave.json
+// 1.20.1	2023-10-12T19:34:41.783784	Depths & Desolation/Dynamic Registry bootstraps for depths_desolation
 bf4f18847bb6af86a2dd5d641fdc1477fc51ee03 data\depths_desolation\worldgen\configured_feature\snowify.json
+ad7e5708e43371933b8459add43bb903c8a863a3 data\depths_desolation\worldgen\configured_feature\spawn_cave.json
+2770d87b49e95db3cbcb2baff866e428dcda3276 data\depths_desolation\worldgen\world_preset\desolate.json
+19dc3b0b514ca340f2d69290d17e360de30285f0 data\depths_desolation\worldgen\configured_feature\spawn_cave_bonus.json
+1c27c6a7f4fc84ff2cab216c983bf40dc5e04ddf data\depths_desolation\worldgen\multi_noise_biome_source_parameter_list\desolate.json
+5b63d21483d05867ba398e2a2ff6e494d8e1563b data\depths_desolation\worldgen\placed_feature\snowify.json
