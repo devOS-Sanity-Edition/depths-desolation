@@ -1,4 +1,4 @@
-package one.devos.nautical.depths_desolation.content.worldgen.preset;
+package one.devos.nautical.depths_desolation.content.worldgen.parameters;
 
 import java.util.Map;
 import java.util.function.Consumer;

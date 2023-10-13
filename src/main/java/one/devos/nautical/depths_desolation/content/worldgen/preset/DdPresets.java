@@ -3,7 +3,7 @@ package one.devos.nautical.depths_desolation.content.worldgen.preset;
 import java.util.Map;
 
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
-import one.devos.nautical.depths_desolation.content.worldgen.preset.parameters.DdParameters;
+import one.devos.nautical.depths_desolation.content.worldgen.parameters.DdParameters;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
 import net.minecraft.core.HolderGetter;

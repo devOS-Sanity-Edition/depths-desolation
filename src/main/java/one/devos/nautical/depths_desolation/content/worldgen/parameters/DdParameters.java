@@ -1,4 +1,4 @@
-package one.devos.nautical.depths_desolation.content.worldgen.preset.parameters;
+package one.devos.nautical.depths_desolation.content.worldgen.parameters;
 
 import java.util.function.Function;
 
@@ -7,8 +7,6 @@ import com.google.common.collect.ImmutableList.Builder;
 import com.mojang.datafixers.util.Pair;
 
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
-
-import one.devos.nautical.depths_desolation.content.worldgen.preset.DesolateOverworldBiomeBuilder;
 
 import org.jetbrains.annotations.NotNull;
 
