@@ -2,6 +2,10 @@ package one.devos.nautical.depths_desolation;
 
 import net.minecraft.resources.ResourceLocation;
 
+import one.devos.nautical.depths_desolation.content.DdBlocks;
+
+import one.devos.nautical.depths_desolation.content.DdTabs;
+
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 
@@ -17,7 +21,9 @@ public class DepthsAndDesolation implements ModInitializer {
 
 	@Override
 	public void onInitialize(ModContainer mod) {
+		DdBlocks.init();
 		DdItems.init();
+		DdTabs.init();
 		DdWorldgen.init();
 	}
 
