@@ -28,7 +28,7 @@ public class SnowifyFeature extends Feature<SnowifyFeatureConfiguration> {
 			freezeSupportingBlock(level, pos);
 			for (int i = 0; i <= depth; i++) {
 				BlockPos above = pos.above(i);
-				if (level.getBlockState(above).isAir()) {
+				if (level.getBlockState(above).canBeReplaced()) {
 					Block block = i == depth ? Blocks.SNOW : Blocks.SNOW_BLOCK;
 					level.setBlock(above, block.defaultBlockState(), Block.UPDATE_CLIENTS);
 				}
