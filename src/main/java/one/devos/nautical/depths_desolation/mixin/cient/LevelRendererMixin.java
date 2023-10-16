@@ -22,6 +22,18 @@ public class LevelRendererMixin {
 	private Minecraft minecraft;
 
 	@ModifyExpressionValue(
+			method = "renderSky",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/renderer/DimensionSpecialEffects;getSunriseColor(FF)[F"
+			)
+	)
+	private float[] noSunsetInSnowFog(float[] original) {
+		// todo: move fog stuff to new class, check fogress here
+		return null;
+	}
+
+	@ModifyExpressionValue(
 			method = "renderSnowAndRain",
 			at = @At(
 					value = "INVOKE",

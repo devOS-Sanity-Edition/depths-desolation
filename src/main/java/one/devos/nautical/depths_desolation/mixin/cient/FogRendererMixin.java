@@ -1,15 +1,20 @@
 package one.devos.nautical.depths_desolation.mixin.cient;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import one.devos.nautical.depths_desolation.content.DdItems;
 import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import net.minecraft.Util;
@@ -40,7 +45,7 @@ public class FogRendererMixin {
 	private static boolean inSnowFog = false;
 
 	@Unique
-	private static double fogress; // fog progress, 0-1
+	private static float fogress; // fog progress, 0-1
 
 	@WrapOperation(
 			method = "setupColor",
@@ -57,6 +62,11 @@ public class FogRendererMixin {
 		return normalColors.lerp(SNOW_FOG_COLORS, fogress);
 	}
 
+	@ModifyExpressionValue(method = "setupColor", at = @At(value = "CONSTANT", args = "intValue=4"))
+	private static int noSunsetInSnowFog(int thresholdForSunset) {
+		return fogress > 0.5 ? Integer.MAX_VALUE : thresholdForSunset;
+	}
+
 	@ModifyArgs(
 			method = "setupFog",
 			at = @At(
@@ -70,7 +80,7 @@ public class FogRendererMixin {
 		float start = args.get(0);
 		float snowFogEnd = getSnowFogEnd(camera, viewDistance);
 		float snowFogStart = -snowFogEnd;
-		args.set(0, (float) Mth.lerp(fogress, start, snowFogStart));
+		args.set(0, Mth.lerp(fogress, start, snowFogStart));
 	}
 
 	@ModifyArgs(
@@ -85,7 +95,7 @@ public class FogRendererMixin {
 												 Camera camera, FogRenderer.FogMode fogType, float viewDistance, boolean thickFog, float tickDelta) {
 		float end = args.get(0);
 		float snowFogEnd = getSnowFogEnd(camera, viewDistance);
-		args.set(0, (float) Mth.lerp(fogress, end, snowFogEnd));
+		args.set(0, Mth.lerp(fogress, end, snowFogEnd));
 	}
 
 	@Unique
@@ -107,9 +117,9 @@ public class FogRendererMixin {
 		if (timeOfTransitionEnd != -1) {
 			long currentTime = Util.getMillis();
 			long diff = timeOfTransitionEnd - currentTime; // starts at max, counts down
-			double progress = 1 - (diff / (double) TIME_FOR_MAX_FOG);
-			double capped = Math.min(1, progress);
-			double smooth = smoothenProgress(capped);
+			float progress = 1 - (diff / (float) TIME_FOR_MAX_FOG);
+			float capped = Math.min(1, progress);
+			float smooth = smoothenProgress(capped);
 			fogress = inSnowFog ? smooth : 1 - smooth;
 			if (currentTime > timeOfTransitionEnd) {
 				timeOfTransitionEnd = -1;
@@ -127,8 +137,8 @@ public class FogRendererMixin {
 	}
 
 	@Unique
-	private static double smoothenProgress(double progress) {
-		double inSineDomain = Mth.map(progress, 0, 1, -Mth.HALF_PI, Mth.HALF_PI);
-		return (Math.sin(inSineDomain) + 1) / 2;
+	private static float smoothenProgress(float progress) {
+		float inSineDomain = Mth.map(progress, 0f, 1f, -Mth.HALF_PI, Mth.HALF_PI);
+		return (Mth.sin(inSineDomain) + 1) / 2;
 	}
 }
