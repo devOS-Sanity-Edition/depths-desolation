@@ -10,7 +10,9 @@ import one.devos.nautical.depths_desolation.client.FogManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import net.minecraft.client.Camera;
@@ -21,17 +23,23 @@ import net.minecraft.world.phys.Vec3;
 
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
-	@WrapOperation(
-			method = "setupColor",
+	@Unique
+	private static float partialTicks;
+
+	@Inject(method = "setupColor", at = @At("HEAD"))
+	private static void yoinkPartialTicks(Camera camera, float tickDelta, ClientLevel world, int viewDistance, float skyDarkness, CallbackInfo ci) {
+		partialTicks = tickDelta;
+	}
+
+	@ModifyExpressionValue(
+			method = "method_24873", // gaussianSampleVec3 lambda
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/util/CubicSampler;gaussianSampleVec3(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/util/CubicSampler$Vec3Fetcher;)Lnet/minecraft/world/phys/Vec3;"
+					target = "Lnet/minecraft/world/phys/Vec3;fromRGB24(I)Lnet/minecraft/world/phys/Vec3;"
 			)
 	)
-	private static Vec3 handleSnowFogColor(Vec3 position, Vec3Fetcher vec3dFetcher, Operation<Vec3> original,
-										   Camera camera, float tickDelta, ClientLevel world, int viewDistance, float skyDarkness) {
-		Vec3 normalColors = original.call(position, vec3dFetcher);
-		return FogManager.modifyFogColors(normalColors, tickDelta);
+	private static Vec3 handleSnowFogColor(Vec3 originalColors) {
+		return FogManager.modifyFogColors(originalColors, partialTicks);
 	}
 
 	@ModifyExpressionValue(method = "setupColor", at = @At(value = "CONSTANT", args = "intValue=4"))

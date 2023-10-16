@@ -41,7 +41,6 @@ public class FogManager {
 	}
 
 	public static float modifyFogStart(float originalStart, Camera camera, float viewDistance, float partialTicks) {
-		System.out.println(getFogress(partialTicks));
 		if (isActive()) {
 			float end = getSnowFogEnd(camera, viewDistance);
 			float snowStart = -end;
