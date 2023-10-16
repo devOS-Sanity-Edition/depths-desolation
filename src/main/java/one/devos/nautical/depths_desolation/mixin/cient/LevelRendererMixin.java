@@ -2,6 +2,7 @@ package one.devos.nautical.depths_desolation.mixin.cient;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
+import one.devos.nautical.depths_desolation.client.FogManager;
 import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
 import org.spongepowered.asm.mixin.Final;
@@ -29,8 +30,7 @@ public class LevelRendererMixin {
 			)
 	)
 	private float[] noSunsetInSnowFog(float[] original) {
-		// todo: move fog stuff to new class, check fogress here
-		return null;
+		return FogManager.hideSky() ? null : original;
 	}
 
 	@ModifyExpressionValue(

@@ -19,6 +19,7 @@
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
 			"init": "one.devos.nautical.depths_desolation.DepthsAndDesolation",
+      "client_init": "one.devos.nautical.depths_desolation.DdClient",
       "fabric-datagen": "one.devos.nautical.depths_desolation.DdDatagen"
 		},
 		"depends": [
