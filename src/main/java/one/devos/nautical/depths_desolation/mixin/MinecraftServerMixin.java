@@ -14,10 +14,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.ServerLevelData;
-
-import one.devos.nautical.depths_desolation.content.worldgen.feature.spawncave.SpawnCaveFeature;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,7 +42,7 @@ public class MinecraftServerMixin {
 		ci.cancel();
 		worldProperties.setSpawn(spawnPos, 0);
 
-		ResourceKey<ConfiguredFeature<?, ?>> spawnCave = SpawnCaveFeature.get(bonusChest);
+		ResourceKey<ConfiguredFeature<?, ?>> spawnCave = null;
 		world.registryAccess().registry(Registries.CONFIGURED_FEATURE)
 				.flatMap(registry -> registry.getHolder(spawnCave))
 				.ifPresent(
@@ -61,6 +58,7 @@ public class MinecraftServerMixin {
 	@Nullable
 	@Unique
 	private static BlockPos findValidSpawn(ServerLevel level) {
+		if (true) return null; // TODO spawn in a treeode
 		Pair<BlockPos, Holder<Biome>> lushCave = level.findClosestBiome3d(
 				biome -> biome.is(Biomes.LUSH_CAVES),
 				BlockPos.ZERO,
