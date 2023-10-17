@@ -18,6 +18,9 @@ public class DdItems {
 	public static final Item PERMAFROST = register("permafrost", new BlockItem(
 			DdBlocks.PERMAFROST, new Properties()
 	));
+	public static final Item LIGHT_BULB = register("light_bulb", new BlockItem(
+			DdBlocks.LIGHT_BULB, new Properties()
+	));
 
 	private static Item register(String name, Item item) {
 		return Registry.register(BuiltInRegistries.ITEM, DepthsAndDesolation.id(name), item);
