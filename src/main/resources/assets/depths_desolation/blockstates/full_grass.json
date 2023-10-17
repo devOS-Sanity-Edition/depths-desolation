@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "depths_desolation:block/full_grass"
+      },
+      {
+        "model": "depths_desolation:block/full_grass",
+        "y": 90
+      },
+      {
+        "model": "depths_desolation:block/full_grass",
+        "y": 180
+      },
+      {
+        "model": "depths_desolation:block/full_grass",
+        "y": 270
+      }
+    ]
+  }
+}
