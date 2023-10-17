@@ -41,11 +41,13 @@ public abstract class DecoratedGeodeFeature<T extends DecoratedGeodeConfiguratio
 		return () -> new AbstractIterator<>() {
 			@Override
 			protected MutableBlockPos computeNext() {
+				if (!itr.hasNext()) {
+					return endOfData();
+				}
+
 				MutableBlockPos pos = itr.next();
 				if (level.getBlockState(pos).canBeReplaced()) {
 					return pos;
-				} else if (itr.hasNext()) {
-					return computeNext();
 				} else {
 					return endOfData();
 				}

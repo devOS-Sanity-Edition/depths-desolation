@@ -72,7 +72,14 @@ public class DdConfiguredFeatures {
 						0.05,
 						1
 				),
-				configuredFeatures.getOrThrow(TreeFeatures.OAK)
+				configuredFeatures.getOrThrow(TreeFeatures.OAK),
+				List.of(
+						Blocks.DANDELION.defaultBlockState(),
+						Blocks.POPPY.defaultBlockState(),
+						Blocks.TALL_GRASS.defaultBlockState(),
+						Blocks.FERN.defaultBlockState(),
+						Blocks.MOSS_CARPET.defaultBlockState()
+				)
 		)
 		));
 	}

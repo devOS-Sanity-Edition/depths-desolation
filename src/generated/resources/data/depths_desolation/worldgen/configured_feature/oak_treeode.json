@@ -1,6 +1,26 @@
 {
   "type": "depths_desolation:treeode",
   "config": {
+    "floor_decor": [
+      {
+        "Name": "minecraft:dandelion"
+      },
+      {
+        "Name": "minecraft:poppy"
+      },
+      {
+        "Name": "minecraft:tall_grass",
+        "Properties": {
+          "half": "lower"
+        }
+      },
+      {
+        "Name": "minecraft:fern"
+      },
+      {
+        "Name": "minecraft:moss_carpet"
+      }
+    ],
     "geode_config": {
       "blocks": {
         "alternate_inner_layer_provider": {
