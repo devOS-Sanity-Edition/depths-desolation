@@ -12,6 +12,9 @@ public class DdBlocks {
 	public static final Block PERMAFROST = register("permafrost", new Block(
 			QuiltBlockSettings.copy(Blocks.COARSE_DIRT).strength(0.7f)
 	));
+	public static final Block FULL_GRASS = register("full_grass", new Block(
+			QuiltBlockSettings.copy(Blocks.GRASS_BLOCK).dropsLike(Blocks.GRASS_BLOCK)
+	));
 
 	private static Block register(String name, Block block) {
 		return Registry.register(BuiltInRegistries.BLOCK, DepthsAndDesolation.id(name), block);
