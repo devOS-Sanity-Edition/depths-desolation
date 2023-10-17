@@ -74,11 +74,11 @@ public class DdConfiguredFeatures {
 				),
 				configuredFeatures.getOrThrow(TreeFeatures.OAK),
 				List.of(
-						Blocks.DANDELION.defaultBlockState(),
-						Blocks.POPPY.defaultBlockState(),
-						Blocks.TALL_GRASS.defaultBlockState(),
-						Blocks.FERN.defaultBlockState(),
-						Blocks.MOSS_CARPET.defaultBlockState()
+						BlockStateProvider.simple(Blocks.DANDELION),
+						BlockStateProvider.simple(Blocks.POPPY),
+						BlockStateProvider.simple(Blocks.GRASS),
+						BlockStateProvider.simple(Blocks.FERN),
+						BlockStateProvider.simple(Blocks.MOSS_CARPET)
 				)
 		)
 		));

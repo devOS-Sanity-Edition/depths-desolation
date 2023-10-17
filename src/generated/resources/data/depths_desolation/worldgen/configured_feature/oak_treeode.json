@@ -3,22 +3,34 @@
   "config": {
     "floor_decor": [
       {
-        "Name": "minecraft:dandelion"
-      },
-      {
-        "Name": "minecraft:poppy"
-      },
-      {
-        "Name": "minecraft:tall_grass",
-        "Properties": {
-          "half": "lower"
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:dandelion"
         }
       },
       {
-        "Name": "minecraft:fern"
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:poppy"
+        }
       },
       {
-        "Name": "minecraft:moss_carpet"
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:grass"
+        }
+      },
+      {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:fern"
+        }
+      },
+      {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:moss_carpet"
+        }
       }
     ],
     "geode_config": {

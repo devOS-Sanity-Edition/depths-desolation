@@ -3,17 +3,16 @@ package one.devos.nautical.depths_desolation.content.worldgen.feature.geode.tree
 import com.mojang.serialization.Codec;
 
 import net.minecraft.Util;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.DecoratedGeodeFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public class TreeodeFeature extends DecoratedGeodeFeature<TreeodeConfiguration> {
 	public static final float DECOR_CHANCE = 1 / 2f;
@@ -44,7 +43,8 @@ public class TreeodeFeature extends DecoratedGeodeFeature<TreeodeConfiguration> 
 		for (MutableBlockPos pos : spiralAroundInAir(level, inGeode, 5)) {
 			moveToFloor(pos, level);
 			if (level.getBlockState(pos).isAir() && rand.nextFloat() > DECOR_CHANCE) {
-				BlockState state = Util.getRandom(config.floorDecor, rand);
+				BlockStateProvider provider = Util.getRandom(config.floorDecor, rand);
+				BlockState state = provider.getState(rand, pos);
 				if (state.canSurvive(level, pos)) {
 					setBlock(level, pos, state);
 				}
