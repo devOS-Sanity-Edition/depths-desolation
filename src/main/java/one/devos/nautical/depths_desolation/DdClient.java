@@ -3,6 +3,7 @@ package one.devos.nautical.depths_desolation;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.GrassColor;
 
 import one.devos.nautical.depths_desolation.client.FogManager;
@@ -11,6 +12,7 @@ import one.devos.nautical.depths_desolation.content.DdBlocks;
 
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 
 public class DdClient implements ClientModInitializer {
@@ -23,5 +25,6 @@ public class DdClient implements ClientModInitializer {
 						: GrassColor.getDefaultColor(),
 				DdBlocks.FULL_GRASS
 		);
+		BlockRenderLayerMap.put(RenderType.cutout(), DdBlocks.LIGHT_BULB);
 	}
 }

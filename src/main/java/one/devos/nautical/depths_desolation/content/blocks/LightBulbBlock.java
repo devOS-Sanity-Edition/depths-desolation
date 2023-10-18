@@ -91,7 +91,7 @@ public class LightBulbBlock extends DirectionalBlock implements BonemealableBloc
 		Direction facing = state.getValue(FACING);
 		BlockPos adjacent = pos.relative(facing);
 		BlockState wallState = world.getBlockState(adjacent);
-		return wallState.isFaceSturdy(world, adjacent, facing.getOpposite(), SupportType.CENTER);
+		return wallState.isFaceSturdy(world, adjacent, facing.getOpposite(), SupportType.FULL);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import one.devos.nautical.depths_desolation.content.worldgen.feature.DdConfigure
 import one.devos.nautical.depths_desolation.content.worldgen.feature.DdPlacedFeatures;
 import one.devos.nautical.depths_desolation.content.worldgen.preset.DdPresets;
 import one.devos.nautical.depths_desolation.content.worldgen.parameters.DdParameters;
+import one.devos.nautical.depths_desolation.data.DdBlockstateGen;
 import one.devos.nautical.depths_desolation.util.DynamicRegistryBootstraps;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +23,7 @@ public class DdDatagen implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator gen) {
 		FabricDataGenerator.Pack pack = gen.createPack();
 		pack.addProvider(BOOTSTRAPS::getDataProvider);
+		pack.addProvider(DdBlockstateGen::new);
 	}
 
 	@Override
