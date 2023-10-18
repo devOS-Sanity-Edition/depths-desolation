@@ -3,6 +3,9 @@ package one.devos.nautical.depths_desolation.content.worldgen.feature.geode.tree
 import com.mojang.serialization.Codec;
 
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.state.BlockState;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.DecoratedGeodeFeature;
 import net.minecraft.core.BlockPos;
@@ -27,11 +30,12 @@ public class TreeodeFeature extends DecoratedGeodeFeature<TreeodeConfiguration> 
 		ChunkGenerator chunkGen = ctx.chunkGenerator();
 		RandomSource rand = ctx.random();
 		TreeodeConfiguration config = ctx.config();
-		ConfiguredFeature<?, ?> treeFeature = config.treeFeature.value();
+
+		ConfiguredFeature<?, ?> tree = config.trees.select(level.registryAccess(), rand);
 
 		for (MutableBlockPos pos : spiralAroundInAir(level, inGeode, 5)) {
 			moveToFloor(pos, level);
-			boolean placed = treeFeature.place(level, chunkGen, rand, pos);
+			boolean placed = tree.place(level, chunkGen, rand, pos);
 			if (placed) {
 				break;
 			}

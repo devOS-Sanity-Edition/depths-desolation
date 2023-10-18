@@ -1,13 +1,20 @@
 package one.devos.nautical.depths_desolation.content.worldgen.feature;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import net.minecraft.Util;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
@@ -19,12 +26,16 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.content.DdBlocks;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeConfiguration;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeType;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.snowify.SnowifyFeatureConfiguration;
+import one.devos.nautical.depths_desolation.data.tags.TreeFeatureTags;
+import one.devos.nautical.depths_desolation.util.ConfiguredFeatureProvider;
 
 public class DdConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SNOWIFY = create("snowify");
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> TREEODE_OAK = create("oak_treeode");
+	public static final Map<TreeodeType, ResourceKey<ConfiguredFeature<?, ?>>> BUILTIN_TREEODES = Arrays.stream(TreeodeType.values())
+			.collect(Collectors.toMap(Function.identity(), type -> create(type + "_treeode")));
 
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> ctx) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = ctx.lookup(Registries.CONFIGURED_FEATURE);
@@ -32,8 +43,14 @@ public class DdConfiguredFeatures {
 		ctx.register(SNOWIFY, new ConfiguredFeature<>(
 				DdFeatures.SNOWIFY, new SnowifyFeatureConfiguration(6)
 		));
-		ctx.register(TREEODE_OAK, new ConfiguredFeature<>(
-				DdFeatures.TREEODE, new TreeodeConfiguration(
+
+		BUILTIN_TREEODES.forEach((type, key) -> ctx.register(key, treeode(type)));
+	}
+
+	private static ConfiguredFeature<?, ?> treeode(TreeodeType type) {
+		TagKey<ConfiguredFeature<?, ?>> treeTag = TreeFeatureTags.BY_TYPE.get(type);
+
+		return new ConfiguredFeature<>(DdFeatures.TREEODE, new TreeodeConfiguration(
 				// shenanigans: https://gist.github.com/TropheusJ/69b8daa691bbdd9ae43b4d506ff33005
 				new GeodeConfiguration(
 						new GeodeBlockSettings(
@@ -62,7 +79,7 @@ public class DdConfiguredFeatures {
 						0.05,
 						1
 				),
-				configuredFeatures.getOrThrow(TreeFeatures.OAK),
+				new ConfiguredFeatureProvider.Tag(treeTag),
 				List.of(
 						BlockStateProvider.simple(Blocks.DANDELION),
 						BlockStateProvider.simple(Blocks.POPPY),
@@ -70,7 +87,6 @@ public class DdConfiguredFeatures {
 						BlockStateProvider.simple(Blocks.FERN),
 						BlockStateProvider.simple(Blocks.MOSS_CARPET)
 				)
-		)
 		));
 	}
 
