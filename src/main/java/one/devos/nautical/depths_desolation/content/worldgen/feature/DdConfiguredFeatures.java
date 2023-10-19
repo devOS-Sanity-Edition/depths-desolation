@@ -21,12 +21,15 @@ import net.minecraft.world.level.levelgen.GeodeBlockSettings;
 import net.minecraft.world.level.levelgen.GeodeCrackSettings;
 import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.content.DdBlocks;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeType;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.lightroot.LightrootFeatureConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.snowify.SnowifyFeatureConfiguration;
 import one.devos.nautical.depths_desolation.data.tags.TreeFeatureTags;
 import one.devos.nautical.depths_desolation.util.ConfiguredFeatureProvider;
@@ -37,14 +40,18 @@ public class DdConfiguredFeatures {
 	public static final Map<TreeodeType, ResourceKey<ConfiguredFeature<?, ?>>> BUILTIN_TREEODES = Arrays.stream(TreeodeType.values())
 			.collect(Collectors.toMap(Function.identity(), type -> create(type + "_treeode")));
 
-	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> ctx) {
-		HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = ctx.lookup(Registries.CONFIGURED_FEATURE);
+	public static final ResourceKey<ConfiguredFeature<?, ?>> LIGHTROOT = create("lightroot");
 
+	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> ctx) {
 		ctx.register(SNOWIFY, new ConfiguredFeature<>(
 				DdFeatures.SNOWIFY, new SnowifyFeatureConfiguration(6)
 		));
 
 		BUILTIN_TREEODES.forEach((type, key) -> ctx.register(key, treeode(type)));
+
+		ctx.register(LIGHTROOT, new ConfiguredFeature<>(
+				DdFeatures.LIGHTROOT, new LightrootFeatureConfiguration()
+		));
 	}
 
 	private static ConfiguredFeature<?, ?> treeode(TreeodeType type) {

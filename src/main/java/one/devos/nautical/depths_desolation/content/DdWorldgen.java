@@ -22,7 +22,6 @@ public class DdWorldgen {
 				GenerationStep.Decoration.FLUID_SPRINGS, // right before vegetation
 				DdPlacedFeatures.SNOWIFY
 		);
-
 	}
 
 	public static boolean isOverworld(LevelReader reader) {
