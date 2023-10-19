@@ -1,0 +1,8 @@
+{
+  "feature": "depths_desolation:lightroot",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

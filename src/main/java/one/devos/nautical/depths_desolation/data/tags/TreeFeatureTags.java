@@ -44,7 +44,7 @@ public class TreeFeatureTags extends FabricTagProvider<ConfiguredFeature<?, ?>> 
 		tag(DARK_OAK_TREES).add(TreeFeatures.DARK_OAK);
 		tag(JUNGLE_TREES).add(TreeFeatures.JUNGLE_TREE);
 		tag(ACACIA_TREES).add(TreeFeatures.ACACIA);
-		tag(CHERRY_TREES).add(TreeFeatures.ACACIA);
+		tag(CHERRY_TREES).add(TreeFeatures.CHERRY);
 	}
 
 	private static TagKey<ConfiguredFeature<?, ?>> tag(String name) {
