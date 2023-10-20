@@ -13,7 +13,7 @@ public class LightrootFeature extends Feature<LightrootFeatureConfiguration> {
 
 	@Override
 	public boolean place(FeaturePlaceContext<LightrootFeatureConfiguration> context) {
-		setBlock(context.level(), context.origin(), Blocks.DIAMOND_BLOCK.defaultBlockState());
+//		setBlock(context.level(), context.origin(), Blocks.DIAMOND_BLOCK.defaultBlockState());
 		return true;
 	}
 }
