@@ -22,9 +22,9 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 		int firstOctave = -4;
 		int amplitudes = 1;
 		float horizontalScaling = 3;
-		float verticalScaling = 1;
+		float verticalScaling = 2;
 		// noise is -1 <-> 1
-		float minSolidThreshold = 0.1f; // places where noise is greater than this...
+		float minSolidThreshold = 0.f; // places where noise is greater than this...
 		float maxSolidThreshold = 1f; // and less than this...
 		// are stone
 
