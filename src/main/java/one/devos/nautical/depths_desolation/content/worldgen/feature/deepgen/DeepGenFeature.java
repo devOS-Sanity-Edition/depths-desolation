@@ -36,8 +36,6 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 		RandomSource random = context.random();
 		random.setSeed(level.getSeed());
 		NormalNoise noise = NormalNoise.create(random, firstOctave, amplitudes);
-		double minNoise = 100;
-		double maxNoise = -100;
 		for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
 			int distFromMin = pos.getY() - config.minY();
 			if (distFromMin == 0) {
@@ -55,8 +53,9 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 
 			int dist = Math.min(distFromMin, distFromMax);
 			if (dist < 10) {
-				// 0 -> 1 from distance 10 -> 0
-				double bias = Math.cos((dist * Mth.HALF_PI) / 10);
+				// 0 -> 2 from distance 10 -> 0
+				// -1: never actually hits 0, bottom layer
+				double bias = Math.cos((((dist - 1) + 10) * Mth.PI) / 20) + 1;
 				solidness = Math.min(1, solidness + bias);
 			}
 
@@ -64,7 +63,6 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 				setBlock(level, pos, Blocks.STONE.defaultBlockState());
 			}
 		}
-		System.out.println(minNoise + " - " + maxNoise);
 		return true;
 	}
 }
