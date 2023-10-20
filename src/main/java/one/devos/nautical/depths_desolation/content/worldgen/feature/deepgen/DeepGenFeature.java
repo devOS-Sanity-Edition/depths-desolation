@@ -18,12 +18,15 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 
 	@Override
 	public boolean place(FeaturePlaceContext<DeepGenFeatureConfiguration> context) {
+		// weird noise math values
 		int firstOctave = -4;
 		int amplitudes = 1;
 		float horizontalScaling = 3;
 		float verticalScaling = 1;
-		float minSolidThreshold = 0;
-		float maxSolidThreshold = 0.4f;
+		// noise is -1 <-> 1
+		float minSolidThreshold = 0.1f; // places where noise is greater than this...
+		float maxSolidThreshold = 1f; // and less than this...
+		// are stone
 
 		DeepGenFeatureConfiguration config = context.config();
 		BlockPos origin = context.origin();
@@ -33,6 +36,8 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 		RandomSource random = context.random();
 		random.setSeed(level.getSeed());
 		NormalNoise noise = NormalNoise.create(random, firstOctave, amplitudes);
+		double minNoise = 100;
+		double maxNoise = -100;
 		for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
 			int distFromMin = pos.getY() - config.minY();
 			if (distFromMin == 0) {
@@ -46,19 +51,20 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 				continue;
 			}
 
-			double value = noise.getValue(pos.getX() / horizontalScaling, pos.getY() / verticalScaling, pos.getZ() / horizontalScaling);
+			double solidness = noise.getValue(pos.getX() / horizontalScaling, pos.getY() / verticalScaling, pos.getZ() / horizontalScaling);
 
 			int dist = Math.min(distFromMin, distFromMax);
 			if (dist < 10) {
 				// 0 -> 1 from distance 10 -> 0
 				double bias = Math.cos((dist * Mth.HALF_PI) / 10);
-				value -= bias;
+				solidness = Math.min(1, solidness + bias);
 			}
 
-			if (minSolidThreshold < value && value < maxSolidThreshold) {
+			if (solidness <= maxSolidThreshold && solidness >= minSolidThreshold) {
 				setBlock(level, pos, Blocks.STONE.defaultBlockState());
 			}
 		}
+		System.out.println(minNoise + " - " + maxNoise);
 		return true;
 	}
 }
