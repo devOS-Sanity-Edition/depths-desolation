@@ -5,5 +5,5 @@ import com.mojang.serialization.Codec;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class LightrootFeatureConfiguration implements FeatureConfiguration {
-	public static final Codec<LightrootFeatureConfiguration> CODEC = Codec.unit(null);
+	public static final Codec<LightrootFeatureConfiguration> CODEC = Codec.unit(new LightrootFeatureConfiguration());
 }
