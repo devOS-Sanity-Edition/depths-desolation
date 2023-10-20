@@ -3,6 +3,7 @@ package one.devos.nautical.depths_desolation.content.worldgen.preset;
 import java.util.Map;
 
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
+import one.devos.nautical.depths_desolation.content.worldgen.dimensiontype.DdDimensionTypes;
 import one.devos.nautical.depths_desolation.content.worldgen.parameters.DdParameters;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Holder.Reference;
@@ -49,7 +50,7 @@ public class DdPresets {
 
 		ctx.register(DESOLATE, new WorldPreset(Map.of(
 				LevelStem.OVERWORLD, new LevelStem(
-						dimensionTypes.getOrThrow(BuiltinDimensionTypes.OVERWORLD),
+						dimensionTypes.getOrThrow(DdDimensionTypes.DESOLATE_OVERWORLD),
 						new NoiseBasedChunkGenerator(overworldBiomes, overworldNoise)
 				),
 				LevelStem.NETHER, nether,
