@@ -1,6 +1,7 @@
 package one.devos.nautical.depths_desolation;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.ResetChunksCommand;
 
 import one.devos.nautical.depths_desolation.content.DdBlocks;
 
@@ -8,6 +9,7 @@ import one.devos.nautical.depths_desolation.content.DdTabs;
 
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 
 import one.devos.nautical.depths_desolation.content.DdItems;
 import one.devos.nautical.depths_desolation.content.DdWorldgen;
@@ -25,6 +27,8 @@ public class DepthsAndDesolation implements ModInitializer {
 		DdItems.init();
 		DdTabs.init();
 		DdWorldgen.init();
+
+		CommandRegistrationCallback.EVENT.register((dispatcher, ctx, env) -> ResetChunksCommand.register(dispatcher));
 	}
 
 	public static ResourceLocation id(String path) {
