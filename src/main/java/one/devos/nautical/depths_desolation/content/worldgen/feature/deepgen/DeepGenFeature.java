@@ -55,7 +55,7 @@ public class DeepGenFeature extends Feature<DeepGenFeatureConfiguration> {
 			if (dist < 10) {
 				// 0 -> 2 from distance 10 -> 0
 				// -1: never actually hits 0, bottom layer
-				double bias = Math.cos((((dist - 1) + 10) * Mth.PI) / 20) + 1;
+				double bias = Math.cos((((dist - 1) + 10) * Mth.PI) / 20) * 2 + 2;
 				solidness = Math.min(1, solidness + bias);
 			}
 
