@@ -1,0 +1,7 @@
+{
+  "type": "depths_desolation:deep_gen",
+  "config": {
+    "max_y": -65,
+    "min_y": -192
+  }
+}

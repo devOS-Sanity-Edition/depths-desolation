@@ -22,6 +22,11 @@ public class DdWorldgen {
 				GenerationStep.Decoration.FLUID_SPRINGS, // right before vegetation
 				DdPlacedFeatures.SNOWIFY
 		);
+		BiomeModifications.addFeature(
+				BiomeSelectors.all(),
+				GenerationStep.Decoration.RAW_GENERATION,
+				DdPlacedFeatures.DEEP_GEN
+		);
 	}
 
 	public static boolean isOverworld(LevelReader reader) {

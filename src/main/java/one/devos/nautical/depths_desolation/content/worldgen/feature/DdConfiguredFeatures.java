@@ -27,6 +27,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfigurat
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.content.DdBlocks;
+import one.devos.nautical.depths_desolation.content.worldgen.dimensiontype.DdDimensionTypes;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.deepgen.DeepGenFeatureConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeType;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.lightroot.LightrootFeatureConfiguration;
@@ -41,6 +43,7 @@ public class DdConfiguredFeatures {
 			.collect(Collectors.toMap(Function.identity(), type -> create(type + "_treeode")));
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LIGHTROOT = create("lightroot");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> DEEP_GEN = create("deep_gen");
 
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> ctx) {
 		ctx.register(SNOWIFY, new ConfiguredFeature<>(
@@ -51,6 +54,11 @@ public class DdConfiguredFeatures {
 
 		ctx.register(LIGHTROOT, new ConfiguredFeature<>(
 				DdFeatures.LIGHTROOT, new LightrootFeatureConfiguration()
+		));
+		ctx.register(DEEP_GEN, new ConfiguredFeature<>(
+				DdFeatures.DEEP_GEN, new DeepGenFeatureConfiguration(
+				DdDimensionTypes.MIN_Y, -65
+		)
 		));
 	}
 

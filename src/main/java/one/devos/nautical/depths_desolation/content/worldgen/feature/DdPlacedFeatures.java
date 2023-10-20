@@ -16,6 +16,7 @@ import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 public class DdPlacedFeatures {
 	public static final ResourceKey<PlacedFeature> SNOWIFY = create("snowify");
 	public static final ResourceKey<PlacedFeature> LIGHTROOT = create("lightroot");
+	public static final ResourceKey<PlacedFeature> DEEP_GEN = create("deep_gen");
 
 	public static void bootstrap(BootstapContext<PlacedFeature> ctx) {
 		HolderGetter<ConfiguredFeature<?, ?>> configured = ctx.lookup(Registries.CONFIGURED_FEATURE);
@@ -26,6 +27,10 @@ public class DdPlacedFeatures {
 		ctx.register(LIGHTROOT, new PlacedFeature(
 				configured.getOrThrow(DdConfiguredFeatures.LIGHTROOT),
 				List.of(BiomeFilter.biome())
+		));
+		ctx.register(DEEP_GEN, new PlacedFeature(
+				configured.getOrThrow(DdConfiguredFeatures.DEEP_GEN),
+				List.of()
 		));
 	}
 
