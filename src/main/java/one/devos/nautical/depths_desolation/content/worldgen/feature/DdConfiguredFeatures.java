@@ -58,8 +58,7 @@ public class DdConfiguredFeatures {
 		ctx.register(DEEP_GEN, new ConfiguredFeature<>(
 				DdFeatures.DEEP_GEN, new DeepGenFeatureConfiguration(
 				DdDimensionTypes.MIN_Y, -65
-		)
-		));
+		)));
 	}
 
 	private static ConfiguredFeature<?, ?> treeode(TreeodeType type) {

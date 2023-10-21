@@ -5,6 +5,7 @@ import one.devos.nautical.depths_desolation.content.worldgen.feature.DdPlacedFea
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 
 import org.quiltmc.qsl.worldgen.biome.api.BiomeModifications;
 import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
@@ -18,10 +19,15 @@ public class DdWorldgen {
 
 	private static void modifyBiomes() {
 		BiomeModifications.addFeature(
-				BiomeSelectors.all(),
+				BiomeSelectors.foundInOverworld(),
 				GenerationStep.Decoration.FLUID_SPRINGS, // right before vegetation
 				DdPlacedFeatures.SNOWIFY
 		);
+		DdPlacedFeatures.BUILTIN_TREEODES.values().forEach(treeode -> BiomeModifications.addFeature(
+				BiomeSelectors.foundInOverworld(),
+				Decoration.LOCAL_MODIFICATIONS, // same as amethyst geodes
+				treeode
+		));
 	}
 
 	public static boolean isOverworld(LevelReader reader) {
