@@ -1,7 +1,7 @@
 {
   "dimensions": {
     "minecraft:overworld": {
-      "type": "depths_desolation:overworld",
+      "type": "minecraft:overworld",
       "generator": {
         "type": "minecraft:noise",
         "biome_source": {

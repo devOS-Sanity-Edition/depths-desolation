@@ -50,7 +50,7 @@ public class DdPresets {
 
 		ctx.register(DESOLATE, new WorldPreset(Map.of(
 				LevelStem.OVERWORLD, new LevelStem(
-						dimensionTypes.getOrThrow(DdDimensionTypes.DESOLATE_OVERWORLD),
+						dimensionTypes.getOrThrow(BuiltinDimensionTypes.OVERWORLD),
 						new NoiseBasedChunkGenerator(overworldBiomes, overworldNoise)
 				),
 				LevelStem.NETHER, nether,
