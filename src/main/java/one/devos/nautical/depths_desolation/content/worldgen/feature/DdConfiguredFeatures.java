@@ -11,7 +11,9 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
@@ -20,6 +22,7 @@ import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.content.DdBlocks;
 import one.devos.nautical.depths_desolation.content.blocks.LightBulbBlock;
@@ -69,19 +72,35 @@ public class DdConfiguredFeatures {
 				// shenanigans: https://gist.github.com/TropheusJ/69b8daa691bbdd9ae43b4d506ff33005
 				new GeodeConfiguration(
 						new GeodeBlockSettings(
-								BlockStateProvider.simple(Blocks.AIR),
-								BlockStateProvider.simple(DdBlocks.FULL_GRASS),
-								BlockStateProvider.simple(Blocks.MOSS_BLOCK),
-								BlockStateProvider.simple(Blocks.ROOTED_DIRT),
-								BlockStateProvider.simple(Blocks.DIRT),
+								BlockStateProvider.simple(Blocks.AIR), // filling
+								weighted(Map.of( // inner layer
+										// moss is 20% because of alternate
+										DdBlocks.FULL_GRASS, 60, // 60% / 80%
+										Blocks.DIRT, 40 // 40% / 80%
+								)),
+								BlockStateProvider.simple(Blocks.MOSS_BLOCK), // alternate
+								weighted(Map.of( // middle layer
+										Blocks.ROOTED_DIRT, 40,
+										Blocks.MOSSY_COBBLESTONE, 30,
+										Blocks.DIRT, 20,
+										Blocks.COBBLESTONE, 5,
+										Blocks.ANDESITE, 5
+								)),
+								weighted(Map.of( // outer layer
+										Blocks.DIRT, 40,
+										Blocks.ROOTED_DIRT, 30,
+										Blocks.COBBLESTONE, 10,
+										Blocks.ANDESITE, 10,
+										Blocks.MOSSY_COBBLESTONE, 10
+								)),
 								bulbs,
 								BlockTags.FEATURES_CANNOT_REPLACE,
 								BlockTags.GEODE_INVALID_BLOCKS
 						),
 						new GeodeLayerSettings(6, 7.5, 9, 10.5),
 						new GeodeCrackSettings(0.95, 2.0, 1),
-						0.35,
-						0.083,
+						0.10,
+						0.2,
 						true,
 						ConstantInt.of(5),
 						ConstantInt.of(3),
@@ -100,6 +119,12 @@ public class DdConfiguredFeatures {
 						BlockStateProvider.simple(Blocks.MOSS_CARPET)
 				)
 		));
+	}
+
+	private static WeightedStateProvider weighted(Map<Block, Integer> blocks) {
+		SimpleWeightedRandomList.Builder<BlockState> list = new SimpleWeightedRandomList.Builder<>();
+		blocks.forEach((block, weight) -> list.add(block.defaultBlockState(), weight));
+		return new WeightedStateProvider(list);
 	}
 
 	private static ResourceKey<ConfiguredFeature<?, ?>> create(String name) {
