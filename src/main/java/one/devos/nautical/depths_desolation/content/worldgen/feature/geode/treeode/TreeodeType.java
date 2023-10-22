@@ -3,7 +3,7 @@ package one.devos.nautical.depths_desolation.content.worldgen.feature.geode.tree
 import java.util.Locale;
 
 public enum TreeodeType {
-	OAK, BIRCH, SPRUCE, DARK_OAK, JUNGLE, ACACIA, CHERRY;
+	OAK, BIRCH, SPRUCE, DARK_OAK, JUNGLE, ACACIA, MANGROVE, CHERRY;
 
 	@Override
 	public String toString() {

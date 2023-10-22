@@ -20,6 +20,7 @@ public class TreeFeatureTags extends FabricTagProvider<ConfiguredFeature<?, ?>> 
 	public static final TagKey<ConfiguredFeature<?, ?>> DARK_OAK_TREES = tag("dark_oak_trees");
 	public static final TagKey<ConfiguredFeature<?, ?>> JUNGLE_TREES = tag("jungle_trees");
 	public static final TagKey<ConfiguredFeature<?, ?>> ACACIA_TREES = tag("acacia_trees");
+	public static final TagKey<ConfiguredFeature<?, ?>> MANGROVE_TREES = tag("mangrove_trees");
 	public static final TagKey<ConfiguredFeature<?, ?>> CHERRY_TREES = tag("cherry_trees");
 
 	public static final Map<TreeodeType, TagKey<ConfiguredFeature<?, ?>>> BY_TYPE = Map.of(
@@ -29,6 +30,7 @@ public class TreeFeatureTags extends FabricTagProvider<ConfiguredFeature<?, ?>> 
 			TreeodeType.DARK_OAK, DARK_OAK_TREES,
 			TreeodeType.JUNGLE, JUNGLE_TREES,
 			TreeodeType.ACACIA, ACACIA_TREES,
+			TreeodeType.MANGROVE, MANGROVE_TREES,
 			TreeodeType.CHERRY, CHERRY_TREES
 	);
 
@@ -44,6 +46,7 @@ public class TreeFeatureTags extends FabricTagProvider<ConfiguredFeature<?, ?>> 
 		tag(DARK_OAK_TREES).add(TreeFeatures.DARK_OAK);
 		tag(JUNGLE_TREES).add(TreeFeatures.JUNGLE_TREE);
 		tag(ACACIA_TREES).add(TreeFeatures.ACACIA);
+		tag(MANGROVE_TREES).add(TreeFeatures.MANGROVE); // intentionally exclude tall
 		tag(CHERRY_TREES).add(TreeFeatures.CHERRY);
 	}
 
