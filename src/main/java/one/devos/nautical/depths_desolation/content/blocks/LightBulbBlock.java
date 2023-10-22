@@ -60,7 +60,7 @@ public class LightBulbBlock extends DirectionalBlock implements BonemealableBloc
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		Direction clickedFace = ctx.getClickedFace();
-		return this.defaultBlockState().setValue(FACING, clickedFace.getOpposite());
+		return this.defaultBlockState().setValue(FACING, clickedFace);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class LightBulbBlock extends DirectionalBlock implements BonemealableBloc
 	@Override
 	@SuppressWarnings("deprecation")
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-		if (random.nextFloat() > GROW_CHANCE) {
+		if (random.nextFloat() < GROW_CHANCE) {
 			int age = state.getValue(AGE);
 			BlockState newState = state.setValue(AGE, age + 1);
 			world.setBlockAndUpdate(pos, newState);
@@ -89,9 +89,10 @@ public class LightBulbBlock extends DirectionalBlock implements BonemealableBloc
 	@SuppressWarnings("deprecation")
 	public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
 		Direction facing = state.getValue(FACING);
-		BlockPos adjacent = pos.relative(facing);
+		Direction intoWall = facing.getOpposite();
+		BlockPos adjacent = pos.relative(intoWall);
 		BlockState wallState = world.getBlockState(adjacent);
-		return wallState.isFaceSturdy(world, adjacent, facing.getOpposite(), SupportType.FULL);
+		return wallState.isFaceSturdy(world, adjacent, facing, SupportType.FULL);
 	}
 
 	@Override

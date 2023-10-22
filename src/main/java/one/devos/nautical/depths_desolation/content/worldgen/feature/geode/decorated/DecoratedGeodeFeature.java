@@ -49,7 +49,7 @@ public abstract class DecoratedGeodeFeature<T extends DecoratedGeodeConfiguratio
 				if (level.getBlockState(pos).canBeReplaced()) {
 					return pos;
 				} else {
-					return endOfData();
+					return computeNext();
 				}
 			}
 		};

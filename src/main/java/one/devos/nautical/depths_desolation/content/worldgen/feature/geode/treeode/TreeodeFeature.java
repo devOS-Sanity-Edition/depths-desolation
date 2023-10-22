@@ -3,9 +3,6 @@ package one.devos.nautical.depths_desolation.content.worldgen.feature.geode.tree
 import com.mojang.serialization.Codec;
 
 import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.state.BlockState;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.DecoratedGeodeFeature;
 import net.minecraft.core.BlockPos;
@@ -33,11 +30,13 @@ public class TreeodeFeature extends DecoratedGeodeFeature<TreeodeConfiguration> 
 
 		ConfiguredFeature<?, ?> tree = config.trees.select(level.registryAccess(), rand);
 
-		for (MutableBlockPos pos : spiralAroundInAir(level, inGeode, 5)) {
-			moveToFloor(pos, level);
-			boolean placed = tree.place(level, chunkGen, rand, pos);
-			if (placed) {
-				break;
+		if (tree != null) {
+			for (MutableBlockPos pos : spiralAroundInAir(level, inGeode, 5)) {
+				moveToFloor(pos, level);
+				boolean placed = tree.place(level, chunkGen, rand, pos);
+				if (placed) {
+					break;
+				}
 			}
 		}
 
@@ -46,7 +45,7 @@ public class TreeodeFeature extends DecoratedGeodeFeature<TreeodeConfiguration> 
 
 		for (MutableBlockPos pos : spiralAroundInAir(level, inGeode, 5)) {
 			moveToFloor(pos, level);
-			if (level.getBlockState(pos).isAir() && rand.nextFloat() > DECOR_CHANCE) {
+			if (level.getBlockState(pos).isAir() && rand.nextFloat() < DECOR_CHANCE) {
 				BlockStateProvider provider = Util.getRandom(config.floorDecor, rand);
 				BlockState state = provider.getState(rand, pos);
 				if (state.canSurvive(level, pos)) {

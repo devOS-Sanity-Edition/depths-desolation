@@ -1,32 +1,28 @@
 package one.devos.nautical.depths_desolation.content.worldgen.feature;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import net.minecraft.Util;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
 import net.minecraft.world.level.levelgen.GeodeCrackSettings;
 import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.content.DdBlocks;
+import one.devos.nautical.depths_desolation.content.blocks.LightBulbBlock;
 import one.devos.nautical.depths_desolation.content.worldgen.dimensiontype.DdDimensionTypes;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.deepgen.DeepGenFeatureConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeConfiguration;
@@ -64,6 +60,11 @@ public class DdConfiguredFeatures {
 	private static ConfiguredFeature<?, ?> treeode(TreeodeType type) {
 		TagKey<ConfiguredFeature<?, ?>> treeTag = TreeFeatureTags.BY_TYPE.get(type);
 
+		BlockState lightBulb = DdBlocks.LIGHT_BULB.defaultBlockState().setValue(LightBulbBlock.NATURAL, true);
+		List<BlockState> bulbs = LightBulbBlock.AGE.getPossibleValues().stream()
+				.map(age -> lightBulb.setValue(LightBulbBlock.AGE, age))
+				.toList();
+
 		return new ConfiguredFeature<>(DdFeatures.TREEODE, new TreeodeConfiguration(
 				// shenanigans: https://gist.github.com/TropheusJ/69b8daa691bbdd9ae43b4d506ff33005
 				new GeodeConfiguration(
@@ -73,23 +74,20 @@ public class DdConfiguredFeatures {
 								BlockStateProvider.simple(Blocks.MOSS_BLOCK),
 								BlockStateProvider.simple(Blocks.ROOTED_DIRT),
 								BlockStateProvider.simple(Blocks.DIRT),
-								List.of(
-										Blocks.FERN.defaultBlockState(),
-										Blocks.GRASS.defaultBlockState()
-								),
+								bulbs,
 								BlockTags.FEATURES_CANNOT_REPLACE,
 								BlockTags.GEODE_INVALID_BLOCKS
 						),
 						new GeodeLayerSettings(6, 7.5, 9, 10.5),
-						new GeodeCrackSettings(1, 2.0, 2),
-						1,
+						new GeodeCrackSettings(0.95, 2.0, 1),
+						0.35,
 						0.083,
 						true,
 						ConstantInt.of(5),
 						ConstantInt.of(3),
 						ConstantInt.of(1),
-						-16,
-						16,
+						-15,
+						15,
 						0.05,
 						1
 				),

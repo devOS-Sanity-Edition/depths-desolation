@@ -56,10 +56,36 @@
         },
         "inner_placements": [
           {
-            "Name": "minecraft:fern"
+            "Name": "depths_desolation:light_bulb",
+            "Properties": {
+              "age": "0",
+              "facing": "north",
+              "natural": "true"
+            }
           },
           {
-            "Name": "minecraft:grass"
+            "Name": "depths_desolation:light_bulb",
+            "Properties": {
+              "age": "1",
+              "facing": "north",
+              "natural": "true"
+            }
+          },
+          {
+            "Name": "depths_desolation:light_bulb",
+            "Properties": {
+              "age": "2",
+              "facing": "north",
+              "natural": "true"
+            }
+          },
+          {
+            "Name": "depths_desolation:light_bulb",
+            "Properties": {
+              "age": "3",
+              "facing": "north",
+              "natural": "true"
+            }
           }
         ],
         "invalid_blocks": "#minecraft:geode_invalid_blocks",
@@ -78,8 +104,8 @@
       },
       "crack": {
         "base_crack_size": 2.0,
-        "crack_point_offset": 2,
-        "generate_crack_chance": 1.0
+        "crack_point_offset": 1,
+        "generate_crack_chance": 0.95
       },
       "distribution_points": 3,
       "invalid_blocks_threshold": 1,
@@ -89,14 +115,14 @@
         "middle_layer": 9.0,
         "outer_layer": 10.5
       },
-      "max_gen_offset": 16,
-      "min_gen_offset": -16,
+      "max_gen_offset": 15,
+      "min_gen_offset": -15,
       "noise_multiplier": 0.05,
       "outer_wall_distance": 5,
       "placements_require_layer0_alternate": true,
       "point_offset": 1,
       "use_alternate_layer0_chance": 0.083,
-      "use_potential_placements_chance": 1.0
+      "use_potential_placements_chance": 0.35
     },
     "trees": {
       "type": "tag",
