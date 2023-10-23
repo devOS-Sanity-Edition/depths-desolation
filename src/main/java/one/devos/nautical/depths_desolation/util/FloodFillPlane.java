@@ -1,62 +1,79 @@
 package one.devos.nautical.depths_desolation.util;
 
-import com.google.common.collect.Iterators;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
 
-import org.jetbrains.annotations.NotNull;
-
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Deque;
 import java.util.List;
 
-public class FloodFillPlane implements Iterator<BlockPos> {
-	private static final Direction[] directions = Direction.values();
+public class FloodFillPlane {
+	public final BlockPos center;
+	public final List<BlockPos> positions;
 
-	private final LevelReader level;
-	private final BlockPos center;
-	private final Direction.Axis axis;
-	private final int radius;
+	public FloodFillPlane(LevelReader level, BlockPos center, Direction.Axis axis, int radius, SimpleTest test) {
+		this(level, center, axis, radius, test.asTest());
+	}
 
-	private final List<BlockPos> frontier = new ArrayList<>();
-
-	public FloodFillPlane(LevelReader level, BlockPos center, Direction.Axis axis, int radius) {
-		this.level = level;
+	public FloodFillPlane(LevelReader level, BlockPos center, Direction.Axis axis, int radius, Test test) {
 		this.center = center;
-		this.axis = axis;
-		this.radius = radius;
+		this.positions = new ArrayList<>();
 
+		double radiusSqr = radius * radius;
+		Direction[] directions = getRelevantDirections(axis);
+		Deque<BlockPos> checkNext = new ArrayDeque<>();
+		checkNext.add(center);
+		List<BlockPos> visited = new ArrayList<>();
+
+		while (!checkNext.isEmpty()) {
+			BlockPos pos = checkNext.removeFirst();
+			visited.add(pos);
+			if (center.distSqr(pos) > radiusSqr)
+				continue; // too far
+			BlockState state = level.getBlockState(pos);
+			if (!test.isValid(state, pos))
+				continue; // invalid
+
+			// all valid
+			this.positions.add(pos);
+
+			// find neighbors to check next
+			for (Direction direction : directions) {
+				BlockPos next = center.relative(direction);
+				if (!visited.contains(next)) {
+					checkNext.add(next);
+				}
+			}
+		}
+	}
+
+	public static Direction[] getRelevantDirections(Direction.Axis axis) {
 		Direction initial = switch (axis) {
-			case Y -> Direction.DOWN;
-			case X -> Direction.EAST;
-			case Z -> Direction.SOUTH;
+			case Y, X -> Direction.SOUTH;
+			case Z -> Direction.EAST;
 		};
 
+		return new Direction[] {
+				initial,
+				initial.getClockWise(axis),
+				initial.getClockWise(axis).getClockWise(axis),
+				initial.getClockWise(axis).getClockWise(axis).getClockWise(axis)
+		};
 	}
 
-	@Override
-	public boolean hasNext() {
-		return false;
+	public interface Test {
+		boolean isValid(BlockState state, BlockPos pos);
 	}
 
-	@Override
-	public BlockPos next() {
-		return null;
-	}
+	public interface SimpleTest {
+		boolean isValid(BlockState state);
 
-	public static Iterable<BlockPos> create(LevelReader level, BlockPos center, Direction.Axis axis, int radius) {
-		return () -> new FloodFillPlane(level, center, axis, radius);
-	}
-
-	public static Iterable<Direction> fullRotation(Direction direction, Direction.Axis axis) {
-		return () -> Iterators.forArray(
-				direction,
-				direction.getClockWise(axis),
-				direction.getClockWise(axis).getClockWise(axis),
-				direction.getClockWise(axis).getClockWise(axis).getClockWise(axis)
-		);
+		default Test asTest() {
+			return (state, pos) -> this.isValid(state);
+		}
 	}
 }
