@@ -1,5 +1,7 @@
 package one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.decorator;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.mojang.serialization.Codec;
@@ -7,7 +9,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -36,7 +37,7 @@ public class TreeDecorator extends GeodeDecorator {
 	public void decorate(FeaturePlaceContext<DecoratedGeodeConfiguration> context, FloodFillPlane plane) {
 		WorldGenLevel level = context.level();
 		RandomSource random = context.random();
-		List<BlockPos> positions = max == 1 ? plane.positions : outToIn(plane.positions, plane.center);
+		List<BlockPos> positions = max == 1 ? plane.positions : shuffled(plane.positions);
 		int placed = 0;
 		for (BlockPos pos : positions) {
 			ConfiguredFeature<?, ?> tree = this.features.select(level.registryAccess(), random);
@@ -51,5 +52,11 @@ public class TreeDecorator extends GeodeDecorator {
 				}
 			}
 		}
+	}
+
+	public static <T> List<T> shuffled(List<T> list) {
+		List<T> newList = new ArrayList<>(list);
+		Collections.shuffle(newList);
+		return newList;
 	}
 }
