@@ -45,17 +45,21 @@ public abstract class GeodeDecorator {
 		while (!predicate.test(level.getBlockState(mutable))) {
 			mutable.move(direction);
 		}
-		return mutable.move(direction, -1);
+		return mutable.move(direction, -1).immutable();
 	}
 
 	public static BlockPos moveToFloor(WorldGenLevel level, BlockPos pos) {
-		Predicate<BlockState> test = Heightmap.Types.MOTION_BLOCKING_NO_LEAVES.isOpaque();
-		return moveToSurface(level, pos, Direction.DOWN, test);
+		return moveToSurface(level, pos, Direction.DOWN, GeodeDecorator::isSolid);
+	}
+
+	public static boolean isSolid(BlockState state) {
+		return Heightmap.Types.MOTION_BLOCKING_NO_LEAVES.isOpaque().test(state);
 	}
 
 	public enum Type implements StringRepresentable {
 		TREES(() -> TreeDecorator.CODEC),
-		FLOOR_DECOR(() -> FloorDecorDecorator.CODEC);
+		FLOOR_DECOR(() -> FloorDecorDecorator.CODEC),
+		WORLD_SPAWN(() -> WorldSpawnDecorator.CODEC);
 
 		public static final Codec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
 

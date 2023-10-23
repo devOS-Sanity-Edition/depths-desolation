@@ -1,12 +1,16 @@
 package one.devos.nautical.depths_desolation.mixin;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
 import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
+import one.devos.nautical.depths_desolation.duck.ServerLevelExt;
+
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,7 +26,10 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.WritableLevelData;
 
 @Mixin(ServerLevel.class)
-public abstract class ServerLevelMixin extends Level {
+public abstract class ServerLevelMixin extends Level implements ServerLevelExt {
+	@Unique
+	private final AtomicBoolean needsSpawnSet = new AtomicBoolean(false);
+
 	protected ServerLevelMixin(WritableLevelData worldProperties, ResourceKey<Level> registryKey, RegistryAccess registryManager, Holder<DimensionType> dimension, Supplier<ProfilerFiller> profiler, boolean client, boolean debug, long seed, int maxChainedNeighborUpdates) {
 		super(worldProperties, registryKey, registryManager, dimension, profiler, client, debug, seed, maxChainedNeighborUpdates);
 	}
@@ -43,5 +50,10 @@ public abstract class ServerLevelMixin extends Level {
 	)
 	private Precipitation alwaysSnow(Precipitation original) {
 		return DdWorldgen.isOverworld(this) ? Precipitation.SNOW : original;
+	}
+
+	@Override
+	public AtomicBoolean dd$needsSpawnSet() {
+		return needsSpawnSet;
 	}
 }

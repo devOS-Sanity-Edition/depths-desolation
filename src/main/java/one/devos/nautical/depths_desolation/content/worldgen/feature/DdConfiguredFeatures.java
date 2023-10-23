@@ -32,6 +32,7 @@ import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decor
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.decorator.FloorDecorDecorator;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.decorator.TreeDecorator;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.TreeodeType;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.decorator.WorldSpawnDecorator;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.lightroot.LightrootFeatureConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.snowify.SnowifyFeatureConfiguration;
 import one.devos.nautical.depths_desolation.data.tags.DdBlockTags;
@@ -103,7 +104,7 @@ public class DdConfiguredFeatures {
 						),
 						new GeodeLayerSettings(6, 7.5, 9, 10.5),
 						new GeodeCrackSettings(0.95, 2.0, 1),
-						0.10,
+						0.15,
 						0.2,
 						true,
 						ConstantInt.of(5),
@@ -116,7 +117,8 @@ public class DdConfiguredFeatures {
 				),
 				List.of(
 						new TreeDecorator(new ConfiguredFeatureProvider.Tag(treeTag), 3),
-						new FloorDecorDecorator(List.of(new TagBlockStateProvider(DdBlockTags.TREEODE_FLOOR_DECOR)))
+						new FloorDecorDecorator(List.of(new TagBlockStateProvider(DdBlockTags.TREEODE_FLOOR_DECOR))),
+						new WorldSpawnDecorator(5)
 				)
 		));
 	}

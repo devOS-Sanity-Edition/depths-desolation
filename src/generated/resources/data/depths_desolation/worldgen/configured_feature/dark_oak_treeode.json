@@ -18,6 +18,10 @@
             "value": "depths_desolation:treeode_floor_decor"
           }
         ]
+      },
+      {
+        "type": "world_spawn",
+        "search_radius": 5
       }
     ],
     "geode_config": {
@@ -40,15 +44,15 @@
           "entries": [
             {
               "data": {
-                "Name": "minecraft:dirt"
-              },
-              "weight": 40
-            },
-            {
-              "data": {
                 "Name": "depths_desolation:full_grass"
               },
               "weight": 60
+            },
+            {
+              "data": {
+                "Name": "minecraft:dirt"
+              },
+              "weight": 40
             }
           ]
         },
@@ -92,19 +96,19 @@
           "entries": [
             {
               "data": {
-                "Name": "minecraft:rooted_dirt"
-              },
-              "weight": 40
-            },
-            {
-              "data": {
-                "Name": "minecraft:cobblestone"
+                "Name": "minecraft:andesite"
               },
               "weight": 5
             },
             {
               "data": {
-                "Name": "minecraft:andesite"
+                "Name": "minecraft:mossy_cobblestone"
+              },
+              "weight": 30
+            },
+            {
+              "data": {
+                "Name": "minecraft:cobblestone"
               },
               "weight": 5
             },
@@ -116,9 +120,9 @@
             },
             {
               "data": {
-                "Name": "minecraft:mossy_cobblestone"
+                "Name": "minecraft:rooted_dirt"
               },
-              "weight": 30
+              "weight": 40
             }
           ]
         },
@@ -127,19 +131,19 @@
           "entries": [
             {
               "data": {
-                "Name": "minecraft:rooted_dirt"
-              },
-              "weight": 30
-            },
-            {
-              "data": {
-                "Name": "minecraft:cobblestone"
+                "Name": "minecraft:andesite"
               },
               "weight": 10
             },
             {
               "data": {
-                "Name": "minecraft:andesite"
+                "Name": "minecraft:mossy_cobblestone"
+              },
+              "weight": 10
+            },
+            {
+              "data": {
+                "Name": "minecraft:cobblestone"
               },
               "weight": 10
             },
@@ -151,9 +155,9 @@
             },
             {
               "data": {
-                "Name": "minecraft:mossy_cobblestone"
+                "Name": "minecraft:rooted_dirt"
               },
-              "weight": 10
+              "weight": 30
             }
           ]
         }
