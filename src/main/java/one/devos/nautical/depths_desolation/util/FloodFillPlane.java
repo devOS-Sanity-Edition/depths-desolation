@@ -43,7 +43,7 @@ public class FloodFillPlane {
 
 			// find neighbors to check next
 			for (Direction direction : directions) {
-				BlockPos next = center.relative(direction);
+				BlockPos next = pos.relative(direction);
 				if (!visited.contains(next)) {
 					checkNext.add(next);
 				}
