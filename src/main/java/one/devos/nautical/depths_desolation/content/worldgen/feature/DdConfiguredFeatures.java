@@ -34,8 +34,10 @@ import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decor
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.TreeodeType;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.lightroot.LightrootFeatureConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.snowify.SnowifyFeatureConfiguration;
+import one.devos.nautical.depths_desolation.data.tags.DdBlockTags;
 import one.devos.nautical.depths_desolation.data.tags.TreeFeatureTags;
 import one.devos.nautical.depths_desolation.util.ConfiguredFeatureProvider;
+import one.devos.nautical.depths_desolation.util.TagBlockStateProvider;
 
 public class DdConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SNOWIFY = create("snowify");
@@ -114,13 +116,7 @@ public class DdConfiguredFeatures {
 				),
 				List.of(
 						new TreeDecorator(new ConfiguredFeatureProvider.Tag(treeTag), 3),
-						new FloorDecorDecorator(List.of(
-										BlockStateProvider.simple(Blocks.DANDELION),
-										BlockStateProvider.simple(Blocks.POPPY),
-										BlockStateProvider.simple(Blocks.GRASS),
-										BlockStateProvider.simple(Blocks.FERN),
-										BlockStateProvider.simple(Blocks.MOSS_CARPET)
-						))
+						new FloorDecorDecorator(List.of(new TagBlockStateProvider(DdBlockTags.TREEODE_FLOOR_DECOR)))
 				)
 		));
 	}

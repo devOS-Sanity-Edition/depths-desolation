@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.DecoratedGeodeConfiguration;
@@ -48,7 +49,8 @@ public abstract class GeodeDecorator {
 	}
 
 	public static BlockPos moveToFloor(WorldGenLevel level, BlockPos pos) {
-		return moveToSurface(level, pos, Direction.DOWN, state -> !state.canBeReplaced());
+		Predicate<BlockState> test = Heightmap.Types.MOTION_BLOCKING_NO_LEAVES.isOpaque();
+		return moveToSurface(level, pos, Direction.DOWN, test);
 	}
 
 	public enum Type implements StringRepresentable {

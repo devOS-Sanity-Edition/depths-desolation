@@ -1,36 +1,23 @@
 {
-  "type": "depths_desolation:treeode",
+  "type": "depths_desolation:decorated_geode",
   "config": {
-    "floor_decor": [
+    "decorators": [
       {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:dandelion"
-        }
+        "type": "trees",
+        "features": {
+          "type": "tag",
+          "value": "depths_desolation:jungle_trees"
+        },
+        "max_placements": 3
       },
       {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:poppy"
-        }
-      },
-      {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:grass"
-        }
-      },
-      {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:fern"
-        }
-      },
-      {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:moss_carpet"
-        }
+        "type": "floor_decor",
+        "providers": [
+          {
+            "type": "depths_desolation:tag",
+            "value": "depths_desolation:treeode_floor_decor"
+          }
+        ]
       }
     ],
     "geode_config": {
@@ -105,6 +92,18 @@
           "entries": [
             {
               "data": {
+                "Name": "minecraft:rooted_dirt"
+              },
+              "weight": 40
+            },
+            {
+              "data": {
+                "Name": "minecraft:cobblestone"
+              },
+              "weight": 5
+            },
+            {
+              "data": {
                 "Name": "minecraft:andesite"
               },
               "weight": 5
@@ -117,13 +116,18 @@
             },
             {
               "data": {
-                "Name": "minecraft:rooted_dirt"
+                "Name": "minecraft:mossy_cobblestone"
               },
-              "weight": 40
-            },
+              "weight": 30
+            }
+          ]
+        },
+        "outer_layer_provider": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
             {
               "data": {
-                "Name": "minecraft:mossy_cobblestone"
+                "Name": "minecraft:rooted_dirt"
               },
               "weight": 30
             },
@@ -131,13 +135,8 @@
               "data": {
                 "Name": "minecraft:cobblestone"
               },
-              "weight": 5
-            }
-          ]
-        },
-        "outer_layer_provider": {
-          "type": "minecraft:weighted_state_provider",
-          "entries": [
+              "weight": 10
+            },
             {
               "data": {
                 "Name": "minecraft:andesite"
@@ -149,18 +148,6 @@
                 "Name": "minecraft:dirt"
               },
               "weight": 40
-            },
-            {
-              "data": {
-                "Name": "minecraft:rooted_dirt"
-              },
-              "weight": 30
-            },
-            {
-              "data": {
-                "Name": "minecraft:cobblestone"
-              },
-              "weight": 10
             },
             {
               "data": {
@@ -192,10 +179,6 @@
       "point_offset": 1,
       "use_alternate_layer0_chance": 0.2,
       "use_potential_placements_chance": 0.1
-    },
-    "trees": {
-      "type": "tag",
-      "value": "depths_desolation:jungle_trees"
     }
   }
 }

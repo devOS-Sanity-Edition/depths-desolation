@@ -7,6 +7,8 @@ import one.devos.nautical.depths_desolation.content.DdBlocks;
 
 import one.devos.nautical.depths_desolation.content.DdTabs;
 
+import one.devos.nautical.depths_desolation.util.TagBlockStateProvider;
+
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
@@ -16,6 +18,8 @@ import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.rmi.registry.Registry;
 
 public class DepthsAndDesolation implements ModInitializer {
 	public static final String ID = "depths_desolation";
@@ -27,6 +31,7 @@ public class DepthsAndDesolation implements ModInitializer {
 		DdItems.init();
 		DdTabs.init();
 		DdWorldgen.init();
+		TagBlockStateProvider.init();
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, ctx, env) -> ResetChunksCommand.register(dispatcher));
 	}
