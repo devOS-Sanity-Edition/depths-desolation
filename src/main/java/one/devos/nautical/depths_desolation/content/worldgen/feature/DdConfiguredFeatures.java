@@ -28,8 +28,10 @@ import one.devos.nautical.depths_desolation.content.DdBlocks;
 import one.devos.nautical.depths_desolation.content.blocks.LightBulbBlock;
 import one.devos.nautical.depths_desolation.content.worldgen.dimensiontype.DdDimensionTypes;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.deepgen.DeepGenFeatureConfiguration;
-import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeConfiguration;
-import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeType;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.DecoratedGeodeConfiguration;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.decorator.FloorDecorDecorator;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.decorator.TreeDecorator;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.TreeodeType;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.lightroot.LightrootFeatureConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.snowify.SnowifyFeatureConfiguration;
 import one.devos.nautical.depths_desolation.data.tags.TreeFeatureTags;
@@ -68,7 +70,7 @@ public class DdConfiguredFeatures {
 				.map(age -> lightBulb.setValue(LightBulbBlock.AGE, age))
 				.toList();
 
-		return new ConfiguredFeature<>(DdFeatures.TREEODE, new TreeodeConfiguration(
+		return new ConfiguredFeature<>(DdFeatures.DECORATED_GEODE, new DecoratedGeodeConfiguration(
 				// shenanigans: https://gist.github.com/TropheusJ/69b8daa691bbdd9ae43b4d506ff33005
 				new GeodeConfiguration(
 						new GeodeBlockSettings(
@@ -110,13 +112,15 @@ public class DdConfiguredFeatures {
 						0.05,
 						1
 				),
-				new ConfiguredFeatureProvider.Tag(treeTag),
 				List.of(
-						BlockStateProvider.simple(Blocks.DANDELION),
-						BlockStateProvider.simple(Blocks.POPPY),
-						BlockStateProvider.simple(Blocks.GRASS),
-						BlockStateProvider.simple(Blocks.FERN),
-						BlockStateProvider.simple(Blocks.MOSS_CARPET)
+						new TreeDecorator(new ConfiguredFeatureProvider.Tag(treeTag), 3),
+						new FloorDecorDecorator(List.of(
+										BlockStateProvider.simple(Blocks.DANDELION),
+										BlockStateProvider.simple(Blocks.POPPY),
+										BlockStateProvider.simple(Blocks.GRASS),
+										BlockStateProvider.simple(Blocks.FERN),
+										BlockStateProvider.simple(Blocks.MOSS_CARPET)
+						))
 				)
 		));
 	}

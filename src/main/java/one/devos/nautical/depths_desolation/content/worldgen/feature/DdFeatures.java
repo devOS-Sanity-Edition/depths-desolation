@@ -7,8 +7,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.deepgen.DeepGenFeature;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.deepgen.DeepGenFeatureConfiguration;
-import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeConfiguration;
-import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeFeature;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.DecoratedGeodeConfiguration;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.DecoratedGeodeFeature;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.lightroot.LightrootFeature;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.lightroot.LightrootFeatureConfiguration;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.snowify.SnowifyFeature;
@@ -16,7 +16,7 @@ import one.devos.nautical.depths_desolation.content.worldgen.feature.snowify.Sno
 
 public class DdFeatures {
 	public static final SnowifyFeature SNOWIFY = register("snowify", new SnowifyFeature(SnowifyFeatureConfiguration.CODEC));
-	public static final TreeodeFeature TREEODE = register("treeode", new TreeodeFeature(TreeodeConfiguration.CODEC));
+	public static final DecoratedGeodeFeature DECORATED_GEODE = register("decorated_geode", new DecoratedGeodeFeature(DecoratedGeodeConfiguration.CODEC));
 	public static final LightrootFeature LIGHTROOT = register("lightroot", new LightrootFeature(LightrootFeatureConfiguration.CODEC));
 	public static final DeepGenFeature DEEP_GEN = register("deep_gen", new DeepGenFeature(DeepGenFeatureConfiguration.CODEC));
 

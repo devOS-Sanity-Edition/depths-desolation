@@ -1,4 +1,4 @@
-package one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode;
+package one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated;
 
 import java.util.Locale;
 

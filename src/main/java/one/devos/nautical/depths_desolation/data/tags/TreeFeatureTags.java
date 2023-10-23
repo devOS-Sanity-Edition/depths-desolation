@@ -8,7 +8,7 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
-import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeType;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.TreeodeType;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

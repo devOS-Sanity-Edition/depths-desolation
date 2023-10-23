@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
+
 public class FloodFillPlane {
 	public final BlockPos center;
-	public final List<BlockPos> positions;
+	public final ImmutableList<BlockPos> positions;
 
 	public FloodFillPlane(LevelReader level, BlockPos center, Direction.Axis axis, int radius, SimpleTest test) {
 		this(level, center, axis, radius, test.asTest());
@@ -21,7 +24,7 @@ public class FloodFillPlane {
 
 	public FloodFillPlane(LevelReader level, BlockPos center, Direction.Axis axis, int radius, Test test) {
 		this.center = center;
-		this.positions = new ArrayList<>();
+		Builder<BlockPos> positions = ImmutableList.builder();
 
 		double radiusSqr = radius * radius;
 		Direction[] directions = getRelevantDirections(axis);
@@ -39,7 +42,7 @@ public class FloodFillPlane {
 				continue; // invalid
 
 			// all valid
-			this.positions.add(pos);
+			positions.add(pos);
 
 			// find neighbors to check next
 			for (Direction direction : directions) {
@@ -49,6 +52,8 @@ public class FloodFillPlane {
 				}
 			}
 		}
+
+		this.positions = positions.build();
 	}
 
 	public static Direction[] getRelevantDirections(Direction.Axis axis) {

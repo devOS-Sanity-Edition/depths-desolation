@@ -20,7 +20,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
-import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.treeode.TreeodeType;
+import one.devos.nautical.depths_desolation.content.worldgen.feature.geode.decorated.TreeodeType;
 
 public class DdPlacedFeatures {
 	public static final ResourceKey<PlacedFeature> SNOWIFY = create("snowify");
