@@ -42,7 +42,10 @@ public class WorldSpawnDecorator extends GeodeDecorator {
 			// pos is a valid spawn
 			setSpawnSet(serverLevel);
 			DepthsAndDesolation.LOGGER.info("World spawn set to " + pos);
-			serverLevel.setDefaultSpawnPos(pos, 0);
+			BlockPos finalPos = pos;
+			serverLevel.getServer().execute(
+					() -> serverLevel.setDefaultSpawnPos(finalPos, 0)
+			);
 			break;
 		}
 	}
