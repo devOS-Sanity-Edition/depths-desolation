@@ -102,15 +102,15 @@
             },
             {
               "data": {
-                "Name": "minecraft:mossy_cobblestone"
-              },
-              "weight": 30
-            },
-            {
-              "data": {
                 "Name": "minecraft:cobblestone"
               },
               "weight": 5
+            },
+            {
+              "data": {
+                "Name": "minecraft:mossy_cobblestone"
+              },
+              "weight": 30
             },
             {
               "data": {
@@ -137,27 +137,27 @@
             },
             {
               "data": {
-                "Name": "minecraft:mossy_cobblestone"
-              },
-              "weight": 10
-            },
-            {
-              "data": {
                 "Name": "minecraft:cobblestone"
               },
               "weight": 10
             },
             {
               "data": {
-                "Name": "minecraft:dirt"
+                "Name": "minecraft:mossy_cobblestone"
               },
-              "weight": 40
+              "weight": 10
             },
             {
               "data": {
                 "Name": "minecraft:rooted_dirt"
               },
               "weight": 30
+            },
+            {
+              "data": {
+                "Name": "minecraft:dirt"
+              },
+              "weight": 40
             }
           ]
         }
@@ -182,7 +182,7 @@
       "placements_require_layer0_alternate": true,
       "point_offset": 1,
       "use_alternate_layer0_chance": 0.2,
-      "use_potential_placements_chance": 0.1
+      "use_potential_placements_chance": 0.15
     }
   }
 }

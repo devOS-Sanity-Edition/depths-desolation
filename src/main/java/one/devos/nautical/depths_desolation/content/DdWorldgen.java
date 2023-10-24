@@ -1,5 +1,6 @@
 package one.devos.nautical.depths_desolation.content;
 
+import one.devos.nautical.depths_desolation.content.worldgen.chunkgen.DdChunkGenerators;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.DdFeatures;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.DdPlacedFeatures;
 import net.minecraft.world.level.Level;
@@ -13,6 +14,7 @@ import org.quiltmc.qsl.worldgen.biome.api.BiomeSelectors;
 public class DdWorldgen {
 	public static void init() {
 		DdFeatures.init();
+		DdChunkGenerators.init();
 
 		modifyBiomes();
 	}

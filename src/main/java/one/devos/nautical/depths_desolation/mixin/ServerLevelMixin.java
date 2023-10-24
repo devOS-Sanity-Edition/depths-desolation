@@ -1,12 +1,23 @@
 package one.devos.nautical.depths_desolation.mixin;
 
+import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.progress.ChunkProgressListener;
+import net.minecraft.world.RandomSequences;
+import net.minecraft.world.level.CustomSpawner;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.storage.LevelStorageSource;
+import net.minecraft.world.level.storage.ServerLevelData;
 import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
+import one.devos.nautical.depths_desolation.content.worldgen.chunkgen.DesolateChunkGenerator;
+import one.devos.nautical.depths_desolation.duck.LevelExt;
 import one.devos.nautical.depths_desolation.duck.ServerLevelExt;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,6 +43,16 @@ public abstract class ServerLevelMixin extends Level implements ServerLevelExt {
 
 	protected ServerLevelMixin(WritableLevelData worldProperties, ResourceKey<Level> registryKey, RegistryAccess registryManager, Holder<DimensionType> dimension, Supplier<ProfilerFiller> profiler, boolean client, boolean debug, long seed, int maxChainedNeighborUpdates) {
 		super(worldProperties, registryKey, registryManager, dimension, profiler, client, debug, seed, maxChainedNeighborUpdates);
+	}
+
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void setDesolate(MinecraftServer server, Executor executor, LevelStorageSource.LevelStorageAccess levelStorageAccess,
+							 ServerLevelData worldProperties, ResourceKey<Level> registryKey, LevelStem levelStem,
+							 ChunkProgressListener chunkProgressListener, boolean bl, long l, List<CustomSpawner> spawners,
+							 boolean shouldTickTime, RandomSequences randomSequences, CallbackInfo ci) {
+		if (levelStem.generator() instanceof DesolateChunkGenerator) {
+			((LevelExt) this).dd$setDesolate(true);
+		}
 	}
 
 	@Inject(method = "advanceWeatherCycle", at = @At("HEAD"), cancellable = true)
