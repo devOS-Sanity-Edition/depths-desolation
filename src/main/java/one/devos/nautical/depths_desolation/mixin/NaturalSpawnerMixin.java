@@ -7,7 +7,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.NaturalSpawner;
 
-import one.devos.nautical.depths_desolation.content.DdWorldgen;
+import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +26,7 @@ public class NaturalSpawnerMixin {
 	)
 	private static void filterOverworldSurfaceSpawns(SpawnPlacements.Type location, LevelReader world, BlockPos pos,
 													 EntityType<?> entityType, CallbackInfoReturnable<Boolean> cir) {
-		if (DdWorldgen.isOverworld(world)) {
+		if (DepthsAndDesolation.isDesolate(world)) {
 			if (!entityType.is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
 				if (world.canSeeSky(pos)) {
 					cir.setReturnValue(false);

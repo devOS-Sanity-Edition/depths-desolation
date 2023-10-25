@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 
 import com.mojang.authlib.GameProfile;
 
-import one.devos.nautical.depths_desolation.content.DdWorldgen;
+import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +23,7 @@ public abstract class ServerPlayerMixin extends Player {
 
 	@Inject(method = "fudgeSpawnLocation", at = @At("HEAD"), cancellable = true)
 	private void dontFudge(ServerLevel world, CallbackInfo ci) {
-		if (DdWorldgen.isOverworld(world)) {
+		if (DepthsAndDesolation.isDesolate(world)) {
 			BlockPos pos = world.getSharedSpawnPos();
 			this.moveTo(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
 			ci.cancel();

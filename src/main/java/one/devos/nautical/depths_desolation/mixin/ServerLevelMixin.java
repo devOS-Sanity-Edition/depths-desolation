@@ -14,7 +14,7 @@ import net.minecraft.world.level.CustomSpawner;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.storage.LevelStorageSource;
 import net.minecraft.world.level.storage.ServerLevelData;
-import one.devos.nautical.depths_desolation.content.DdWorldgen;
+import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 
 import one.devos.nautical.depths_desolation.content.worldgen.chunkgen.DesolateChunkGenerator;
 import one.devos.nautical.depths_desolation.duck.LevelExt;
@@ -57,7 +57,7 @@ public abstract class ServerLevelMixin extends Level implements ServerLevelExt {
 
 	@Inject(method = "advanceWeatherCycle", at = @At("HEAD"), cancellable = true)
 	private void constantWeather(CallbackInfo ci) {
-		if (DdWorldgen.isOverworld(this)) {
+		if (DepthsAndDesolation.isDesolate(this)) {
 			ci.cancel();
 		}
 	}
@@ -70,7 +70,7 @@ public abstract class ServerLevelMixin extends Level implements ServerLevelExt {
 			)
 	)
 	private Precipitation alwaysSnow(Precipitation original) {
-		return DdWorldgen.isOverworld(this) ? Precipitation.SNOW : original;
+		return DepthsAndDesolation.isDesolate(this) ? Precipitation.SNOW : original;
 	}
 
 	@Override

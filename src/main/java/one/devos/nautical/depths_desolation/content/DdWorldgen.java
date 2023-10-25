@@ -3,8 +3,6 @@ package one.devos.nautical.depths_desolation.content;
 import one.devos.nautical.depths_desolation.content.worldgen.chunkgen.DdChunkGenerators;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.DdFeatures;
 import one.devos.nautical.depths_desolation.content.worldgen.feature.DdPlacedFeatures;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 
@@ -30,10 +28,5 @@ public class DdWorldgen {
 				Decoration.LOCAL_MODIFICATIONS, // same as amethyst geodes
 				treeode
 		));
-	}
-
-	public static boolean isOverworld(LevelReader reader) {
-		// ResourceKey is interned, == works
-		return reader instanceof Level level && level.dimension() == Level.OVERWORLD;
 	}
 }

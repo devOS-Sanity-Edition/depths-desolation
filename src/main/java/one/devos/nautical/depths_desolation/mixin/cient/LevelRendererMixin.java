@@ -2,8 +2,8 @@ package one.devos.nautical.depths_desolation.mixin.cient;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
+import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.client.FogManager;
-import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +41,7 @@ public class LevelRendererMixin {
 			)
 	)
 	private boolean precipitationInOverworld(boolean hasPrecipitation) {
-		return hasPrecipitation || DdWorldgen.isOverworld(minecraft.level);
+		return hasPrecipitation || DepthsAndDesolation.isDesolate(minecraft.level);
 	}
 
 	@ModifyVariable(
@@ -57,7 +57,7 @@ public class LevelRendererMixin {
 			ordinal = 2
 	)
 	private float intensifySnow(float progress) { // float g = ticks + tickDelta
-		int multiplier = DdWorldgen.isOverworld(minecraft.level) ? 13 : 1;
+		int multiplier = DepthsAndDesolation.isDesolate(minecraft.level) ? 13 : 1;
 		return progress * multiplier;
 	}
 
@@ -69,6 +69,6 @@ public class LevelRendererMixin {
 			)
 	)
 	private Precipitation snowInOverworld(Precipitation precipitation) {
-		return DdWorldgen.isOverworld(minecraft.level) ? Precipitation.SNOW : precipitation;
+		return DepthsAndDesolation.isDesolate(minecraft.level) ? Precipitation.SNOW : precipitation;
 	}
 }

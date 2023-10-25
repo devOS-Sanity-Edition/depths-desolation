@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import one.devos.nautical.depths_desolation.DepthsAndDesolation;
-import one.devos.nautical.depths_desolation.net.packet.DesolationSyncPacket;
+import one.devos.nautical.depths_desolation.net.packet.clientbound.DesolationSyncPacket;
 
 import org.quiltmc.loader.api.minecraft.MinecraftQuiltLoader;
 
@@ -16,6 +16,7 @@ public class DdNetworking {
 	public static final PacketType<DesolationSyncPacket> DESOLATION_SYNC = clientbound("desolation_sync", DesolationSyncPacket::new);
 
 	public static void init() {
+		DesolationSyncPacket.registerEvents();
 	}
 
 	private static <T extends ClientboundPacket> PacketType<T> clientbound(String name, Function<FriendlyByteBuf, T> factory) {

@@ -10,9 +10,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+import one.devos.nautical.depths_desolation.DepthsAndDesolation;
 import one.devos.nautical.depths_desolation.content.DdItems;
-
-import one.devos.nautical.depths_desolation.content.DdWorldgen;
 
 public class FogManager {
 	public static final int SNOW_FOG_END = 16 * 6; // 6 chunks
@@ -80,7 +79,7 @@ public class FogManager {
 	}
 
 	private static boolean getSnowFogStatus(ClientLevel level, Entity entity) {
-		if (DdWorldgen.isOverworld(level)) {
+		if (DepthsAndDesolation.isDesolate(level)) {
 			BlockPos blockPos = entity.blockPosition();
 			return level.canSeeSky(blockPos);
 		}
